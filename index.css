@@ -1,0 +1,884 @@
+.profile-main { display: flex; flex-direction: column; align-items: center; gap: 0.35rem; }
+/* Code Projects (left bottom) */
+.code-projects { text-align: center; }
+/* DrawYourBrand removed; using Google Font 'Quicksand' for base text */
+
+/* --- Root Styles and Grid Background --- */
+/* Make sizing predictable across components */
+*, *::before, *::after { box-sizing: border-box; }
+body {
+    /* CSS Variables */
+    --item-bg: rgba(255, 255, 255, 0.9);
+    --item-border-color: black;           /* affected by accent */
+    --tab-bg: #EEE;
+    --tab-bg-active: black;               /* affected by accent */
+    --tab-text: black;                    /* affected by theme */
+    --tab-text-active: white;
+    --bg-color: #ffffff;                  /* theme background */
+    --pixel-bg: transparent;              /* pixel-character bg */
+    --profile-banner-bg: var(--tab-bg-active); /* banner bg follows accent */
+    --snow-dot-color: rgba(255,255,255,0.85);  /* snowfall color; adjusted per accent */
+
+    /* Properties */
+    padding: 2rem;
+    /* Regular text uses Quicksand */
+    font-family: 'Quicksand', sans-serif;
+    letter-spacing: 2px;
+    line-height: 1.5;
+    color: var(--tab-text); /* Default text color */
+    min-height: 100vh; /* Ensure body takes full height for background */
+
+    background:
+        /* Vertical Lines */
+        linear-gradient(
+            90deg,
+            var(--tab-bg) 2px,
+            transparent 2px
+        ) -1px -1px / 3rem 3rem,
+        /* Horizontal Lines */
+        linear-gradient(
+            0deg,
+            var(--tab-bg) 2px,
+            transparent 2px
+        ) -1px -1px / 3rem 3rem;
+    background-color: var(--bg-color);
+}
+
+/* Titles and main headings use JetBrains Mono */
+h1, h2, h3,
+.name,
+.bento-modal__title {
+    font-family: 'JetBrains Mono', 'Quicksand', sans-serif;
+}
+/* Ensure h3 explicitly uses JetBrains Mono to match titles */
+h3 { font-family: 'JetBrains Mono', 'Quicksand', sans-serif; }
+/* Job title and paragraphs use Quicksand */
+.title, p { font-family: 'Quicksand', sans-serif; }
+/* Center key headings across pages */
+h1 { text-align: center; }
+/* Center profile name/title text blocks */
+.name, .title { text-align: center; }
+
+/* --- Bento Grid Container --- */
+.bento-grid-container {
+        display: grid;
+        gap: 0.75rem; /* Slightly tighter space between items for a sleeker look */
+        max-width: 1200px; /* Max width for the whole grid */
+        margin: 1.5rem auto; /* Slightly tighter top/bottom margin */
+        padding: 0.75rem;
+        background-color: rgba(255, 255, 255, 0.2); /* Slight background for the container itself */
+        border-radius: 10px;
+}
+
+/* Desktop grid layout moved to Tailwind utilities in HTML; no media queries needed here */
+
+/* Mobile-first sizing now handled via Tailwind utilities in HTML */
+.icon-btn:hover { background: var(--tab-bg-active); color: var(--tab-text-active); }
+.icon-btn svg {
+    width: 18px;
+    height: 18px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2px;
+}
+/* Fill-based moon icon should inherit currentColor */
+.icon-btn svg path { fill: currentColor; stroke: none; }
+
+/* Theme slider toggle */
+.theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+}
+.theme-toggle input { display: none; }
+.theme-track {
+    position: relative;
+    width: 48px;
+    height: 24px;
+    background: var(--tab-bg);
+    background-image: linear-gradient(to bottom, rgba(255,255,255,0.15), rgba(0,0,0,0.06));
+    border: 2px solid var(--item-border-color);
+    border-radius: 999px;
+}
+.theme-thumb {
+    position: absolute;
+    top: 50%;
+    left: 2px;
+    width: 20px;
+    height: 20px;
+    background: var(--item-bg);
+    border: 1px solid var(--item-border-color);
+    border-radius: 50%;
+    transform: translateY(-50%);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.25);
+    transition: left 0.2s ease;
+}
+.theme-track .icon { position: absolute; top: 50%; transform: translateY(-50%); width: 12px; height: 12px; stroke: var(--tab-text); fill: none; stroke-width: 2px; opacity: 0.45; }
+.theme-track .icon.sun { left: 6px; }
+.theme-track .icon.moon { right: 6px; }
+.theme-track .icon.moon path { fill: var(--tab-text); stroke: none; }
+/* Default active icon (light) */
+.theme-toggle input:not(:checked) + .theme-track .icon.sun { opacity: 1; }
+/* Checked state: move thumb right and highlight moon */
+.theme-toggle input:checked + .theme-track .theme-thumb { left: calc(100% - 2px - 20px); }
+.theme-toggle input:checked + .theme-track .icon.moon { opacity: 1; }
+/* Center the entire accent/theme tile */
+.accent-colors { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
+/* Center and wrap controls inside theme/swatch containers */
+.theme-controls, .accent-controls { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 0.5rem; }
+/* Circular accent swatches */
+.accent-swatch {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: none; /* remove border */
+    cursor: pointer;
+    /* 3D look: layered highlights and shadows */
+    box-shadow:
+        0 2px 3px rgba(0,0,0,0.3),               /* drop shadow */
+        inset 1px 1px 0 rgba(255,255,255,0.25),   /* top-left highlight */
+        inset -2px -2px 0 rgba(0,0,0,0.2);        /* bottom-right shade */
+    background-image:
+        radial-gradient(at 30% 30%, rgba(255,255,255,0.4), rgba(255,255,255,0) 55%),
+        radial-gradient(at 70% 80%, rgba(0,0,0,0.22), rgba(0,0,0,0) 65%);
+    transition: transform 0.1s ease, box-shadow 0.15s ease;
+}
+.accent-swatch:hover {
+    box-shadow:
+        0 3px 5px rgba(0,0,0,0.35),
+        inset 1px 1px 0 rgba(255,255,255,0.28),
+        inset -2px -2px 0 rgba(0,0,0,0.22);
+    transform: translateY(-1px);
+}
+.accent-swatch:active {
+    box-shadow:
+        0 1px 2px rgba(0,0,0,0.3),
+        inset 2px 2px 0 rgba(0,0,0,0.25),
+        inset -1px -1px 0 rgba(255,255,255,0.2);
+    transform: translateY(0);
+}
+.accent-swatch:focus { outline: 2px dashed var(--item-border-color); outline-offset: 1px; }
+.accent-swatch.selected { outline: 2px solid var(--tab-bg-active); outline-offset: 1px; }
+.swatch-black { background-color: #111111; }
+.swatch-red { background-color: #a83c3c; }
+.swatch-blue { background-color: #3860aa; }
+.swatch-green { background-color: #214622; }
+.swatch-purple { background-color: #7d648d; }
+
+/* About tile (Row 1, column 4) */
+.about-top { text-align: center; }
+
+/* GIF (Row 1, columns 5-6) */
+.gifs { display: flex; align-items: stretch; justify-content: center; overflow: hidden; }
+
+/* UI Projects (Rows 2-3, column 1) */
+.ui-projects { text-align: center; }
+
+/* Clickable tiles */
+.clickable { cursor: pointer; }
+.clickable:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+
+/* Profile area placement handled by Tailwind on mobile and grid-areas on desktop */
+.profile-card {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background: var(--profile-banner-bg);
+    border-radius: inherit; /* match tile corners exactly */
+    overflow: hidden; /* contain animated overlay */
+}
+/* Animated dotted overlay (snowfall) on the profile banner */
+.profile-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    /* Variable-driven dot pattern so contrast can change with swatch */
+    background-image: radial-gradient(var(--snow-dot-color) 1.1px, transparent 1.2px);
+    background-size: 10px 10px;
+    background-position: 0 0;
+    animation: snowfall 100s linear infinite;
+    z-index: 0;
+    opacity: 0.5; /* keep subtle over content */
+    border-radius: inherit; /* ensure overlay respects rounded corners */
+}
+/* Ensure inner content sits above overlay */
+.profile-card > * { position: relative; z-index: 1; }
+.social-icons {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-top: 0.2rem;
+    padding: 0;
+    list-style: none;
+}
+.social-icons li { display: inline-flex; }
+.social-link {
+    display: inline-flex;
+    width: 36px;
+    height: 36px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    border: 1px solid var(--item-border-color);
+    background: var(--tab-bg);
+    color: var(--tab-text);
+    transition: transform 0.15s ease, background-color 0.2s ease, color 0.2s ease;
+}
+.social-link:hover { background: var(--tab-bg-active); color: var(--tab-text-active); transform: translateY(-1px); }
+.social-link .icon { width: 18px; height: 18px; display: block; }
+.profile-pic {
+    width: 120px; /* Slightly smaller for a sleek look */
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--item-border-color);
+    background: #DDD;
+    margin-bottom: 6px;
+}
+.name {
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 2px;
+}
+.title {
+    font-size: 0.95rem;
+    color: #666;
+}
+/* Improve contrast for text and controls on the profile banner */
+.profile-card .name,
+.profile-card .title { color: #f0f0f0; }
+.profile-card .social-link {
+    background: rgba(255,255,255,0.08);
+    color: #f0f0f0;
+    border-color: rgba(255,255,255,0.35);
+}
+.profile-card .social-link:hover {
+    background: rgba(255,255,255,0.22);
+    color: #ffffff;
+}
+.profile-card .profile-pic {
+    border-color: rgba(255,255,255,0.6);
+    background: rgba(255,255,255,0.15);
+}
+
+/* Education (Rows 2-3, columns 5-6) */
+
+
+.pixel-character {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;     
+    image-rendering: pixelated; 
+    transform: scale(1.1);        
+    transform-origin: center;   
+    background: var(--pixel-bg);  
+}
+
+/* Themes */
+.theme-light {
+    --bg-color: #ffffff;
+    --tab-text: #111111;
+    --item-bg: rgba(255,255,255,0.9);
+}
+.theme-dark {
+    --bg-color: #111111;
+    --tab-text: #eaeaea;
+    /* Make cards/dialogs solid in dark mode */
+    --item-bg: #000000;
+    /* Use a darker tab/background line color for dark mode */
+    --tab-bg: #2a2a2a;
+}
+
+/* Solidize specific components in dark mode */
+.theme-dark .bento-list-card {
+    background-color: #202020; /* replace translucent white */
+}
+.theme-dark .bento-grid-container {
+    background-color: #1616162d; /* replace light translucent container */
+}
+
+/* Accent palettes */
+.accent-black {
+    --item-border-color: #202020;
+    --tab-bg-active: #000000;
+    --pixel-bg: rgba(0,0,0,0.08);
+    --snow-dot-color: rgba(255, 255, 255, 0.288);
+}
+.accent-red {
+    --item-border-color: #a83c3c;
+    --tab-bg-active: #a83c3c;
+    --pixel-bg: rgba(198,40,40,0.12);
+    --snow-dot-color: rgba(187, 180, 141, 0.651);
+}
+.accent-blue {
+    --item-border-color: #3860aa;
+    --tab-bg-active: #3860aa;
+    --pixel-bg: rgba(21,101,192,0.12);
+    --snow-dot-color: rgba(255,255,255,0.288);
+}
+.accent-green {
+    --item-border-color: #214622;
+    --tab-bg-active: #214622;
+    --pixel-bg: rgba(46,125,50,0.12);
+    --snow-dot-color: rgba(255,255,255,0.288);
+}
+.accent-purple {
+    --item-border-color: #7d648d;
+    --tab-bg-active: #7d648d;
+    --pixel-bg: rgba(106,27,154,0.12);
+    --snow-dot-color: rgba(255,255,255,0.288);
+}
+
+/* Work Experience (Row 4 only, columns 5-6) */
+
+/* Certificates (Row 4, columns 1-4) */
+.certificates { justify-content: flex-start; align-items: stretch; }
+.certificates-strip {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;              /* hide overflow for marquee */
+    padding: 0.25rem 0;            /* minimal vertical padding */
+    cursor: grab;                  /* indicate draggable area */
+}
+.certificates-track {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    height: 100%;                 /* make children able to size to the full strip height */
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;                   /* slightly tighter spacing between thumbs */
+    animation: cert-marquee 40s linear infinite;
+}
+/* Note: Do not pause on hover; keep marquee running and let JS handle interaction */
+@keyframes cert-marquee {
+    /* Include a manual offset variable so JS can nudge/drag without changing sizes */
+    from { transform: translateY(-50%) translateX(calc(var(--cert-offset, 0px) + 0%)); }
+    to   { transform: translateY(-50%) translateX(calc(var(--cert-offset, 0px) + -50%)); }
+}
+/* Landscape thumbnail frames that fill the strip height */
+.cert-thumb-btn {
+    border: none;
+    background: var(--item-bg);    /* give landscape frame a clean background */
+    padding: 0;
+    display: block;
+    height: 100%;                  /* fill the certificates-track height */
+    aspect-ratio: 16 / 9;          /* make each thumb landscape */
+    overflow: hidden;              /* crop overflow when covering */
+    border-radius: 6px;
+    flex: 0 0 auto;                /* prevent flex-grow */
+}
+
+/* Make images cover their landscape frames */
+#app .certificate-thumb {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;  /* show the full certificate without cropping */
+    object-position: center;
+    display: block;
+    user-select: none;              /* avoid accidental selection while dragging */
+    -webkit-user-drag: none;        /* prevent image drag ghost */
+}
+
+/* Dragging state cursor */
+.certificates-strip.dragging { cursor: grabbing; }
+
+/* Button wrapper for clickable certificate thumbnails */
+.cert-thumb-btn { border: none; background: transparent; padding: 0; cursor: pointer; }
+.cert-thumb-btn[aria-hidden="true"] { pointer-events: none; }
+
+/* Modal image sizing for certificates */
+.bento-modal__body img.modal-image {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    border-radius: 6px;
+}
+
+/* --- NEW: Modifier class for grid items with tabs --- */
+.grid-item.has-tabs {
+    justify-content: flex-start; /* Align content to the top */
+    align-items: stretch;      /* Stretch content to full width */
+    padding: 0;                /* Remove padding to allow tabs to touch edges */
+    overflow: hidden;          /* hide outside effects; inner content will scroll */
+    min-height: 0;             /* allow flex children to shrink */
+}
+
+    /* Ensure borders are always visible when Tailwind resets run */
+    #app .grid-item {
+        border: 2px solid var(--item-border-color);
+        border-radius: 10px;
+        background-color: var(--item-bg);
+    }
+
+/* --- NEW: Bento Tab Component Styles --- */
+.bento-tabs-container {
+    width: 100%;
+    height: 100%;
+    min-height: 0;            /* critical for inner scroll areas */
+    display: flex;
+    flex-direction: column;
+}
+
+.bento-tabs-nav {
+    display: flex;
+    width: 100%;
+}
+
+.bento-tab-button {
+    flex-grow: 1; /* Make buttons share space equally */
+    padding: 0.75rem;
+    border: none;
+    border-bottom: 2px solid var(--item-border-color);
+    background-color: var(--tab-bg);
+    color: var(--tab-text);
+    cursor: pointer;
+    font-family: 'JetBrains Mono', 'Quicksand', sans-serif;
+    letter-spacing: inherit;
+    font-size: 0.9rem;
+    transition: all 0.2s ease-in-out;
+}
+
+.bento-tabs-nav .bento-tab-button:first-child {
+    border-top-left-radius: 6px; /* Correct value for the radius */
+}
+
+.bento-tabs-nav .bento-tab-button:last-child {
+    border-top-right-radius: 6px; /* Correct value for the radius */
+}
+
+.bento-tab-button.active {
+    background-color: var(--tab-bg-active);
+    color: var(--tab-text-active);
+    border-bottom-color: var(--tab-bg-active);
+}
+
+.bento-tabs-content {
+    padding: 0.8rem;    /* a bit tighter to help content fit */
+    flex-grow: 1;       /* fill remaining height */
+    min-height: 0;      /* allow to shrink */
+    overflow: hidden;   /* avoid scrollbars; content should fit */
+}
+
+.bento-tab-panel {
+    display: none;
+}
+
+.bento-tab-panel.active {
+    display: block;
+}
+
+/* Harmonize panel layout with experience cards */
+.bento-tab-panel {
+    text-align: center;
+}
+.bento-tab-panel p { margin: 0.3rem 0; }
+.bento-tab-panel .bento-btn { margin-top: 0.5rem; }
+
+/* Company header with square logo */
+.company-header {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* center horizontally */
+    gap: 0.6rem;
+    margin-bottom: 0.3rem;
+}
+.company-header h3 {
+    margin: 0;
+    font-size: 1.05rem;
+}
+.company-logo { width: 64px; height: 64px; object-fit: cover; border-radius: 50%; border: 1px solid var(--item-border-color); background: #EEE; }
+.placeholder-logo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'JetBrains Mono', 'Quicksand', sans-serif;
+    font-weight: 700;
+    color: var(--tab-text);
+    background: linear-gradient(135deg, rgba(0,0,0,0.04), rgba(0,0,0,0));
+}
+
+/* Landscape ID/Card layout for Education and Work panels */
+.id-card {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;   /* include border in width to prevent overflow */
+    display: grid;
+    grid-template-columns: 72px 1fr; /* brand left, content right; larger brand for bigger logo */
+    align-items: start;        /* keep logo/text anchored to top consistently */
+    gap: 0.6rem;              /* tighter gap to fit container */
+    padding: 0.5rem 0.6rem;   /* remove ID-like padding to reduce height */
+    border: none;             /* remove ID styling */
+    background: transparent;  /* remove gradient */
+    border-radius: 0;         /* remove rounded corners */
+    text-align: left;         /* card content aligns left */
+}
+/* remove accent strip */
+.id-card::before { content: none; }
+.id-card__brand { display: flex; align-items: flex-start; justify-content: center; }
+.id-card__brand .company-logo { width: 64px; height: 64px; border-radius: 50%; display: block; }
+.id-card__body { display: grid; align-items: start; grid-auto-flow: row; gap: 0.15rem; position: relative; padding-left: 0.9rem; }
+.id-card__body::before { content: ''; position: absolute; left: 0; top: 2px; bottom: 2px; width: 2px; background: var(--item-border-color); opacity: 0.55; }
+.id-card__title { margin: 0; font-size: clamp(0.9rem, 1.1vw + 0.6rem, 1.05rem); line-height: 1.15; font-family: 'JetBrains Mono', 'Quicksand', sans-serif; letter-spacing: 0.5px; overflow-wrap: anywhere; }
+.id-card__meta { margin: 0; font-size: clamp(0.8rem, 0.6vw + 0.6rem, 0.9rem); color: #666; letter-spacing: 0.3px; overflow-wrap: anywhere; }
+.theme-dark .id-card__meta { color: #aaa; }
+.id-card__actions { margin-top: 0.3rem; }
+
+/* Id-card responsive sizing moved to Tailwind utilities in HTML */
+
+/* --- Buttons --- */
+.bento-btn {
+    display: inline-block;
+    background-color: var(--tab-bg-active);
+    color: var(--tab-text-active);
+    border: 2px solid var(--item-border-color);
+    border-radius: 8px;
+    padding: 0.5rem 0.9rem;
+    cursor: pointer;
+    letter-spacing: inherit;
+    font-family: 'Quicksand', sans-serif;
+}
+.bento-btn:hover { opacity: 0.9; }
+.bento-btn-sm { font-size: 0.85rem; padding: 0.4rem 0.8rem; }
+
+/* --- Styled bullet list for content panels --- */
+.bento-list-card {
+    width: 100%;
+    max-width: 480px; /* keep it from stretching too wide */
+    margin: 0.5rem auto 0; /* center inside the panel */
+    padding: 0.5rem 0.75rem;
+    border: 1px dashed var(--item-border-color);
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.6);
+    text-align: left; /* ensure bullets and text align left */
+    font-size: 0.85rem; /* slightly smaller text */
+}
+.bento-list {
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem 0 0;
+}
+.bento-list li {
+    position: relative;
+    padding-left: 1.25rem;
+    margin: 0.35rem 0; /* tighter for panel space */
+}
+.bento-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.6em;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 999px;
+    background-color: var(--tab-bg-active); /* dark bullet */
+    outline: 2px solid var(--tab-bg);       /* light ring for contrast */
+}
+
+/* --- Modal --- */
+.bento-modal[hidden] { display: none; }
+.bento-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.bento-modal__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+}
+.bento-modal__dialog {
+    position: relative;
+    max-width: 640px;
+    width: calc(100% - 2rem);
+    max-height: calc(100vh - 4rem);
+    overflow: auto;
+    background: var(--item-bg);
+    border: 2px solid var(--item-border-color);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+}
+.bento-modal__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+    border-bottom: 2px solid var(--item-border-color);
+}
+.bento-modal__title { margin: 0; font-size: 1.1rem; }
+.bento-modal__close {
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+}
+.bento-modal__body {
+    padding: 1rem;
+}
+
+/* Responsive Bento Layouts: removed mobile overrides; mobile handled by Tailwind */
+
+/* Extra-small phones: compact 2-col bento */
+/* Extra-small phone tweaks removed; handled via Tailwind utilities */
+
+/* Article layout for About page */
+.article-layout {
+    max-width: 1100px;
+    margin: 2rem auto;
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 1rem;
+    padding: 1rem;
+}
+.article-aside {
+    background: var(--item-bg);
+    border: 2px solid var(--item-border-color);
+    border-radius: 10px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-self: start; /* don't stretch full column; height = contents */
+}
+.mini-profile {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+.mini-profile-pic {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--item-border-color);
+}
+.mini-profile .name { font-weight: 700; }
+.mini-profile .title { font-size: 0.9rem; opacity: 0.8; }
+
+.article-content {
+    background: var(--item-bg);
+    border: 2px solid var(--item-border-color);
+    border-radius: 10px;
+    padding: 1.25rem 1.5rem;
+}
+.article-content.cardless {
+    background: transparent;
+    border: none;
+    padding: 0; /* inner cards will handle their own padding */
+}
+.article-content h1 { margin-top: 0; }
+.article-content h2 { margin-top: 1.25rem; }
+
+/* Reusable card style for inner sections (About/Skills/Sidebar blocks) */
+.bento-card {
+    background: var(--item-bg);
+    border: 2px solid var(--item-border-color);
+    border-radius: 10px;
+}
+
+/* Skills section: tabbed category headers */
+.skills-section .section-card { position: relative; }
+.skills-section .section-card h3 {
+    display: inline-block;
+    margin: 0;               /* tighten around the tab */
+    padding: 0.25rem 0.6rem;
+    background: var(--tab-bg);
+    border: 2px solid var(--item-border-color);
+    border-bottom: none;     /* tab look */
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    position: relative;
+    z-index: 1;              /* ensure tab sits above the box edge */
+    line-height: 1;          /* remove extra descender space that can cause a gap */
+}
+.skills-section .section-card h3::after {
+    content: '';
+    position: absolute;
+    left: 0;                 /* cover full width to ensure no seam at edges */
+    right: 0;
+    bottom: -2px;            /* sit over the box's top border */
+    height: 2px;             /* equal to the box border width */
+    background: var(--item-bg); /* mask the box border under the tab for a seamless join */
+}
+.skills-section .section-card ul { 
+    background: var(--item-bg);
+    border: 2px solid var(--item-border-color);
+    border-radius: 0 8px 8px 8px; /* connect to tab top edge */
+    padding: 0.5rem 0.75rem;
+    margin-top: -6px;        /* deeper overlap to eliminate any remaining gap */
+}
+
+/* Sidebar navbar: hover underline + active highlight */
+.sidebar-nav { position: relative; }
+.sidebar-nav .nav-link {
+    position: relative;
+    color: var(--tab-text);
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+.sidebar-nav .nav-link::after {
+    content: '';
+    position: absolute;
+    left: 12px;
+    right: 12px;
+    bottom: 6px;
+    height: 2px;
+    background: var(--tab-bg-active);
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 180ms ease;
+}
+.sidebar-nav .nav-link:hover::after,
+.sidebar-nav .nav-link:focus-visible::after { transform: scaleX(1); }
+.sidebar-nav .nav-link:hover { background: rgba(0,0,0,0.05); }
+.theme-dark .sidebar-nav .nav-link:hover { background: #2a2a2a; }
+.sidebar-nav .nav-link.is-active,
+.sidebar-nav .nav-link[aria-current="page"] {
+    background: var(--tab-bg-active);
+    color: var(--tab-text-active);
+}
+.sidebar-nav .nav-link:focus-visible { outline: 2px dashed var(--item-border-color); outline-offset: 2px; }
+
+/* About page responsive layout moved to Tailwind utilities in HTML */
+/* Time tile (right-bottom) */
+.time-tile { text-align: center; }
+.time-tile p { font-family: 'JetBrains Mono', monospace; font-size: clamp(0.9rem, 3.5vw, 1.25rem); margin: 0.5rem 0 0; }
+
+/* Extra small screens: shrink swatches and theme toggle */
+@media (max-width: 400px) {
+    .accent-swatch { width: 18px; height: 18px; }
+    .theme-track { width: 42px; height: 20px; }
+    .theme-thumb { width: 18px; height: 18px; }
+    .theme-toggle input:checked + .theme-track .theme-thumb { left: calc(100% - 2px - 18px); }
+}
+@media (max-width: 320px) {
+    .accent-swatch { width: 16px; height: 16px; }
+    .theme-track { width: 38px; height: 18px; }
+    .theme-thumb { width: 16px; height: 16px; }
+    .theme-toggle input:checked + .theme-track .theme-thumb { left: calc(100% - 2px - 16px); }
+}
+
+/* Snowfall animation for profile banner overlay */
+@keyframes snowfall {
+    0% { background-position: 0 0; }
+    100% { background-position: 0 1000px; }
+}
+
+/* Remove inner padding so the banner fills the entire profile tile */
+#app .profile-info { padding: 0; }
+/* Override responsive utility padding to avoid any gaps */
+#app .grid-item.profile-info { padding: 0 !important; }
+/* Fill the rounded corners with the same banner color to avoid tiny gaps */
+#app .grid-item.profile-info { background-color: var(--profile-banner-bg); }
+
+/* Mobile spacing and heading sizing now handled with Tailwind utilities in HTML */
+
+/* Skills section (fieldset/legend pattern) */
+.skills-section fieldset.section-card {
+    border: 2px solid var(--item-border-color);
+    border-radius: 10px;
+    background: var(--item-bg);
+    padding: 0.35rem 0.6rem 0.6rem; /* small internal padding; legend sits on top border */
+}
+.skills-section fieldset.section-card > legend.section-legend {
+    display: inline-block;
+    margin: 0 0 0 0.4rem; /* slight inset to align nicely */
+    padding: 0.2rem 0.5rem;
+    background: var(--tab-bg);
+    color: var(--tab-text);
+    border: none;            /* no border to avoid seam with fieldset */
+    border-radius: 6px;
+    line-height: 1;          /* tight pill */
+}
+.skills-section fieldset.section-card ul {
+    border: 0;               /* only the fieldset has a border */
+    border-radius: 0;        /* handled by fieldset */
+    padding: 0;              /* rely on li padding */
+    margin-top: 0.35rem;     /* space beneath legend */
+}
+
+/* --- Compact text tweaks for Education and Work tabs to avoid overflow --- */
+/* Reduce title and meta font sizes inside these tiles; use !important to override Tailwind important utilities */
+.grid-item.education .id-card__title,
+.grid-item.work-experience .id-card__title {
+    font-size: 0.95rem !important;
+}
+.grid-item.education .id-card__meta,
+.grid-item.work-experience .id-card__meta {
+    font-size: 0.8rem !important;
+    line-height: 1.2 !important;
+}
+/* Slightly smaller list text within the details popover/card */
+.grid-item.education .bento-list-card,
+.grid-item.work-experience .bento-list-card {
+    font-size: 0.8rem;
+}
+
+/* Removed targeted single-line overrides for specific titles; revert to global title/meta fonts */
+
+/* --- Simplification: remove logos and vertical dividers across all viewports --- */
+/* Hide brand/logo column for Education and Work */
+.grid-item.education .id-card__brand,
+.grid-item.work-experience .id-card__brand {
+    display: none !important;
+}
+/* Make card a single column everywhere */
+.grid-item.education .id-card,
+.grid-item.work-experience .id-card {
+    grid-template-columns: 1fr !important;
+}
+/* Remove the vertical divider and left padding */
+.grid-item.education .id-card__body::before,
+.grid-item.work-experience .id-card__body::before {
+    content: none !important;
+}
+.grid-item.education .id-card__body,
+.grid-item.work-experience .id-card__body {
+    padding-left: 0 !important;
+}
+
+/* Keep SHS (Montessori) title to one line while retaining JetBrains Mono */
+#shs .id-card__title {
+    font-family: 'JetBrains Mono', 'Quicksand', sans-serif !important;
+    white-space: nowrap; /* force single line */
+    letter-spacing: 0px !important; /* tighten further to gain width */
+    /* Smaller responsive range to ensure full visibility on narrow widths */
+    font-size: clamp(0.66rem, 1.8vw + 0.28rem, 0.88rem) !important;
+}
+
+/* Equalize Education tab panel height across College/SHS */
+.grid-item.education { --edu-panel-height: 134px; }
+.grid-item.education .bento-tabs-content {
+    height: var(--edu-panel-height);
+    display: flex;           /* center active panel vertically */
+    align-items: center;
+}
+.grid-item.education .bento-tab-panel { width: 100%; }
+/* Slightly taller on very small devices to avoid crowding */
+@media (max-width: 380px) {
+    .grid-item.education { --edu-panel-height: 146px; }
+}
+
+/* Optional: tighten tab button text a hair on very small screens */
+@media (max-width: 380px) {
+    .grid-item.education .bento-tab-button,
+    .grid-item.work-experience .bento-tab-button {
+        font-size: 0.85rem;
+    }
+}

@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Optional: base tweaks to harmonize with existing CSS variables */
+@layer base {
+  html { scroll-behavior: smooth; }
+  body { @apply min-h-screen; }
+}
+
+/* Small helpers for the bento tiles as we migrate */
+@layer utilities {
+  .tile-padding { @apply p-3 sm:p-4; }
+}

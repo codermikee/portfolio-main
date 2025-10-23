@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Portfolio - Featured Designs</title>
+  <!-- Tailwind (CDN runtime) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      important: '#app',
+      darkMode: 'class',
+      theme: { extend: { fontFamily: { sans: ['Quicksand','ui-sans-serif','system-ui','sans-serif'], mono: ['JetBrains Mono','ui-monospace','SFMono-Regular','monospace'] } } }
+    };
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="index.css">
+  
+</head>
+<body class="theme-light accent-black min-h-screen">
+  <div id="app">
+  <div class="bento-grid-container max-w-[800px] mx-auto p-3 sm:p-4">
+    <div class="grid-item p-3 sm:p-4" style="grid-column:auto;grid-row:auto;">
+      <h1>UI Projects</h1>
+      <p>This is a placeholder page. Replace with your UI projects content.</p>
+      <p><a href="index.html">Back to Home</a></p>
+    </div>
+  </div>
+  </div>
+</body>
+</html>

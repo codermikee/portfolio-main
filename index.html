@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Home</title>
+
+        <!-- Tailwind (CDN runtime) -->
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script>
+            tailwind.config = {
+                important: '#app',
+                darkMode: 'class',
+                theme: { extend: { fontFamily: { sans: ['Quicksand','ui-sans-serif','system-ui','sans-serif'], mono: ['JetBrains Mono','ui-monospace','SFMono-Regular','monospace'] } } }
+            };
+        </script>
+
+        <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+    <!-- External icon font removed; using inline SVGs -->
+
+    <link rel="stylesheet" href="index.css">
+    
+</head>
+<body class="min-h-screen">
+
+    <div id="app">
+
+    <div class="bento-grid-container grid grid-cols-6 gap-2 sm:gap-3 max-w-[1200px] mx-auto p-2 sm:p-3 auto-rows-auto">
+        <!-- THEME (accent-colors) -> row 3 col 5-6 on mobile -->
+    <div class="grid-item accent-colors p-3 sm:p-4 row-start-3 col-start-5 col-span-2 aspect-square md:aspect-auto md:row-start-1 md:col-start-6 md:col-span-1">
+            <div class="theme-controls">
+                <label class="theme-toggle" aria-label="Toggle dark mode">
+                    <input type="checkbox" id="themeToggle" />
+                    <span class="theme-track">
+                        <svg class="icon sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                            <circle cx="12" cy="12" r="4"></circle>
+                            <line x1="12" y1="2" x2="12" y2="5"></line>
+                            <line x1="12" y1="19" x2="12" y2="22"></line>
+                            <line x1="4.22" y1="4.22" x2="6.34" y2="6.34"></line>
+                            <line x1="17.66" y1="17.66" x2="19.78" y2="19.78"></line>
+                            <line x1="2" y1="12" x2="5" y2="12"></line>
+                            <line x1="19" y1="12" x2="22" y2="12"></line>
+                            <line x1="4.22" y1="19.78" x2="6.34" y2="17.66"></line>
+                            <line x1="17.66" y1="6.34" x2="19.78" y2="4.22"></line>
+                        </svg>
+                        <svg class="icon moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                        <span class="theme-thumb"></span>
+                    </span>
+                </label>
+            </div>
+            <div class="accent-controls">
+                <button class="accent-swatch swatch-black" data-accent="black" aria-label="Black accent"></button>
+                <button class="accent-swatch swatch-red" data-accent="red" aria-label="Red accent"></button>
+                <button class="accent-swatch swatch-blue" data-accent="blue" aria-label="Blue accent"></button>
+                <button class="accent-swatch swatch-green" data-accent="green" aria-label="Green accent"></button>
+                <button class="accent-swatch swatch-purple" data-accent="purple" aria-label="Purple accent"></button>
+            </div>
+        </div>
+
+        <!-- ABOUT -> row 2 full width on mobile -->
+    <div class="grid-item about-top clickable p-3 sm:p-4 row-start-2 col-span-6 md:row-start-1 md:col-start-2 md:col-span-2" role="link" tabindex="0" aria-label="Go to About Me" data-href="about.html">
+            <h3>ABOUT ME</h3>
+        </div>
+
+        <!-- CODE PROJECTS -> row 4 right half on mobile -->
+    <div class="grid-item code-projects clickable p-3 sm:p-4 row-start-4 col-start-4 col-span-3 md:row-start-3 md:col-start-1 md:row-span-2 md:col-span-1" role="link" tabindex="0" aria-label="Go to Code Projects" data-href="code.html">
+            <h3>CODE PROJECTS</h3>
+        </div>
+
+        <!-- FEATURED DESIGNS -> row 4 left half on mobile -->
+    <div class="grid-item ui-projects clickable p-3 sm:p-4 row-start-4 col-start-1 col-span-3 md:row-start-1 md:row-span-2 md:col-start-1 md:col-span-1" role="link" tabindex="0" aria-label="Go to Featured Designs" data-href="designs.html">
+            <h3 class="whitespace-nowrap md:whitespace-normal tracking-[1px] md:tracking-[2px] text-sm sm:text-base md:text-base leading-tight">FEATURED DESIGNS</h3>
+        </div>
+
+        <!-- PROFILE -> row 1 full width on mobile -->
+    <div class="grid-item profile-info p-3 sm:p-4 row-start-1 col-span-6 md:row-start-2 md:row-span-2 md:col-start-2 md:col-span-3 min-h-[240px] md:min-h-0">
+            <div class="profile-card py-3 px-3 md:py-0 md:px-0">
+                <div class="profile-main gap-2">
+                    <img src="data/pfp.png" alt="Profile picture" class="profile-pic w-24 h-24 sm:w-28 sm:h-28 md:w-[120px] md:h-[120px]" />
+                    <p class="name">MIKE JOMARI RIVERA</p>
+                    <p class="title">Junior Web Developer<br/>UI/UX Designer</p>
+                    <ul class="social-icons" aria-label="Social links">
+                        <li>
+                            <a class="social-link" href="#" target="_blank" rel="noopener" aria-label="GitHub">
+                                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" class="icon">
+                                    <path fill="currentColor" d="M12 2C6.48 2 2 6.65 2 12.34c0 4.53 2.87 8.37 6.86 9.73.5.1.68-.23.68-.5 0-.25-.01-.92-.01-1.8-2.79.63-3.38-1.37-3.38-1.37-.46-1.2-1.12-1.52-1.12-1.52-.92-.65.07-.64.07-.64 1.02.07 1.56 1.08 1.56 1.08.9 1.58 2.36 1.12 2.94.86.09-.67.35-1.12.64-1.38-2.23-.26-4.58-1.14-4.58-5.08 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.32.1-2.75 0 0 .84-.27 2.75 1.05A9.3 9.3 0 0 1 12 7.1c.85 0 1.7.12 2.5.35 1.9-1.32 2.74-1.05 2.74-1.05.56 1.43.21 2.49.1 2.75.64.72 1.02 1.63 1.02 2.75 0 3.95-2.36 4.82-4.6 5.07.36.32.68.95.68 1.92 0 1.38-.01 2.49-.01 2.82 0 .27.18.6.69.5A10.01 10.01 0 0 0 22 12.34C22 6.65 17.52 2 12 2Z"/>
+                                </svg>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="social-link" href="#" target="_blank" rel="noopener" aria-label="LinkedIn">
+                                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" class="icon">
+                                    <path fill="currentColor" d="M4.98 3.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5ZM3 9h4v12H3V9Zm7 0h3.8v1.64h.05c.53-.95 1.83-1.95 3.76-1.95 4.02 0 4.76 2.64 4.76 6.07V21H19V15.9c0-1.22-.02-2.8-1.71-2.8-1.71 0-1.98 1.33-1.98 2.71V21H11V9Z"/>
+                                </svg>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="social-link" href="#" target="_blank" rel="noopener" aria-label="Facebook">
+                                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" class="icon">
+                                    <path fill="currentColor" d="M22 12a10 10 0 1 0-11.56 9.9v-7h-2.2V12h2.2V9.8c0-2.17 1.29-3.36 3.27-3.36.95 0 1.94.17 1.94.17v2.14h-1.1c-1.08 0-1.42.68-1.42 1.38V12h2.42l-.39 2.9h-2.03v7A10 10 0 0 0 22 12Z"/>
+                                </svg>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- GIFS -> row 3 middle on mobile -->
+    <div class="grid-item gifs p-0 row-start-3 col-start-3 col-span-2 aspect-square md:aspect-auto md:row-start-1 md:col-start-4 md:col-span-1">
+            <img src="data/character.gif" alt="Me as a pixel character" class="pixel-character">
+        </div>
+        <!-- CERTIFICATES -> row 5 full width on mobile -->
+        <div class="grid-item certificates p-2 sm:p-3 row-start-5 col-span-6 min-h-[160px] sm:min-h-[180px] md:row-start-4 md:col-start-2 md:col-span-5" aria-label="Certificates gallery">
+            <div class="certificates-strip" role="list">
+                <div class="certificates-track">
+                    <button type="button" class="cert-thumb-btn" data-modal-image="data/Quality Assurance.png" data-modal-title="Quality Assurance">
+                        <img class="certificate-thumb h-36 sm:h-44 md:h-48 lg:h-56" role="listitem" loading="lazy" src="data/Quality Assurance.png" alt="Certificate: Quality Assurance" />
+                    </button>
+                    <button type="button" class="cert-thumb-btn" data-modal-image="data/Mircosoft AI Course.png" data-modal-title="Microsoft AI Course">
+                        <img class="certificate-thumb h-36 sm:h-44 md:h-48 lg:h-56" role="listitem" loading="lazy" src="data/Mircosoft AI Course.png" alt="Certificate: Microsoft AI Course" />
+                    </button>
+                    <button type="button" class="cert-thumb-btn" data-modal-image="data/Introduction to Visual Graphic Design.png" data-modal-title="Introduction to Visual Graphic Design">
+                        <img class="certificate-thumb h-36 sm:h-44 md:h-48 lg:h-56" role="listitem" loading="lazy" src="data/Introduction to Visual Graphic Design.png" alt="Certificate: Introduction to Visual Graphic Design" />
+                    </button>
+                    <button type="button" class="cert-thumb-btn" data-modal-image="data/Developing Designs for User Interface.png" data-modal-title="Developing Designs for User Interface">
+                        <img class="certificate-thumb h-36 sm:h-44 md:h-48 lg:h-56" role="listitem" loading="lazy" src="data/Developing Designs for User Interface.png" alt="Certificate: Developing Designs for User Interface" />
+                    </button>
+                    <button type="button" class="cert-thumb-btn" data-modal-image="data/Developing Designs for User Experience.png" data-modal-title="Developing Designs for User Experience">
+                        <img class="certificate-thumb h-36 sm:h-44 md:h-48 lg:h-56" role="listitem" loading="lazy" src="data/Developing Designs for User Experience.png" alt="Certificate: Developing Designs for User Experience" />
+                    </button>
+                    <button type="button" class="cert-thumb-btn" data-modal-image="data/Intro-to-CSS.png" data-modal-title="Intro to CSS">
+                        <img class="certificate-thumb h-36 sm:h-44 md:h-48 lg:h-56" role="listitem" loading="lazy" src="data/Intro-to-CSS.png" alt="Certificate: Intro to CSS" />
+                    </button>
+                    <button type="button" class="cert-thumb-btn" data-modal-image="data/SkillFront-SFE016bde0f4c69b-11743803966467.png" data-modal-title="SkillFront Software Engineer">
+                        <img class="certificate-thumb h-36 sm:h-44 md:h-48 lg:h-56" role="listitem" loading="lazy" src="data/SkillFront-SFE016bde0f4c69b-11743803966467.png" alt="Certificate: SkillFront Software Engineer" />
+                    </button>
+                    <button type="button" class="cert-thumb-btn" data-modal-image="data/SMART Android Mobile Apps Development for Beginners.png" data-modal-title="SMART Android Mobile Apps Development for Beginners">
+                        <img class="certificate-thumb h-36 sm:h-44 md:h-48 lg:h-56" role="listitem" loading="lazy" src="data/SMART Android Mobile Apps Development for Beginners.png" alt="Certificate: SMART Android Mobile Apps Development for Beginners" />
+                    </button>
+                    <button type="button" class="cert-thumb-btn" data-modal-image="data/SMART Technopreneurship 101.png" data-modal-title="SMART Technopreneurship 101">
+                        <img class="certificate-thumb h-36 sm:h-44 md:h-48 lg:h-56" role="listitem" loading="lazy" src="data/SMART Technopreneurship 101.png" alt="Certificate: SMART Technopreneurship 101" />
+                    </button>
+                    <!-- duplicate for seamless looping -->
+                    <button type="button" class="cert-thumb-btn" data-modal-image="data/Quality Assurance.png" data-modal-title="Quality Assurance" aria-hidden="true" tabindex="-1">
+                        <img class="certificate-thumb h-36 sm:h-44 md:h-48 lg:h-56" role="listitem" loading="lazy" src="data/Quality Assurance.png" alt="Certificate: Quality Assurance" />
+                    </button>
+                    <button type="button" class="cert-thumb-btn" data-modal-image="data/Mircosoft AI Course.png" data-modal-title="Microsoft AI Course" aria-hidden="true" tabindex="-1">
+                        <img class="certificate-thumb h-36 sm:h-44 md:h-48 lg:h-56" role="listitem" loading="lazy" src="data/Mircosoft AI Course.png" alt="Certificate: Microsoft AI Course" />
+                    </button>
+                    <button type="button" class="cert-thumb-btn" data-modal-image="data/Introduction to Visual Graphic Design.png" data-modal-title="Introduction to Visual Graphic Design" aria-hidden="true" tabindex="-1">
+                        <img class="certificate-thumb h-36 sm:h-44 md:h-48 lg:h-56" role="listitem" loading="lazy" src="data/Introduction to Visual Graphic Design.png" alt="Certificate: Introduction to Visual Graphic Design" />
+                    </button>
+                    <button type="button" class="cert-thumb-btn" data-modal-image="data/Developing Designs for User Interface.png" data-modal-title="Developing Designs for User Interface" aria-hidden="true" tabindex="-1">
+                        <img class="certificate-thumb h-36 sm:h-44 md:h-48 lg:h-56" role="listitem" loading="lazy" src="data/Developing Designs for User Interface.png" alt="Certificate: Developing Designs for User Interface" />
+                    </button>
+                    <button type="button" class="cert-thumb-btn" data-modal-image="data/Developing Designs for User Experience.png" data-modal-title="Developing Designs for User Experience" aria-hidden="true" tabindex="-1">
+                        <img class="certificate-thumb h-36 sm:h-44 md:h-48 lg:h-56" role="listitem" loading="lazy" src="data/Developing Designs for User Experience.png" alt="Certificate: Developing Designs for User Experience" />
+                    </button>
+                    <button type="button" class="cert-thumb-btn" data-modal-image="data/Intro-to-CSS.png" data-modal-title="Intro to CSS" aria-hidden="true" tabindex="-1">
+                        <img class="certificate-thumb h-36 sm:h-44 md:h-48 lg:h-56" role="listitem" loading="lazy" src="data/Intro-to-CSS.png" alt="Certificate: Intro to CSS" />
+                    </button>
+                    <button type="button" class="cert-thumb-btn" data-modal-image="data/SkillFront-SFE016bde0f4c69b-11743803966467.png" data-modal-title="SkillFront Software Engineer" aria-hidden="true" tabindex="-1">
+                        <img class="certificate-thumb h-36 sm:h-44 md:h-48 lg:h-56" role="listitem" loading="lazy" src="data/SkillFront-SFE016bde0f4c69b-11743803966467.png" alt="Certificate: SkillFront Software Engineer" />
+                    </button>
+                    <button type="button" class="cert-thumb-btn" data-modal-image="data/SMART Android Mobile Apps Development for Beginners.png" data-modal-title="SMART Android Mobile Apps Development for Beginners" aria-hidden="true" tabindex="-1">
+                        <img class="certificate-thumb h-36 sm:h-44 md:h-48 lg:h-56" role="listitem" loading="lazy" src="data/SMART Android Mobile Apps Development for Beginners.png" alt="Certificate: SMART Android Mobile Apps Development for Beginners" />
+                    </button>
+                    <button type="button" class="cert-thumb-btn" data-modal-image="data/SMART Technopreneurship 101.png" data-modal-title="SMART Technopreneurship 101" aria-hidden="true" tabindex="-1">
+                        <img class="certificate-thumb h-36 sm:h-44 md:h-48 lg:h-56" role="listitem" loading="lazy" src="data/SMART Technopreneurship 101.png" alt="Certificate: SMART Technopreneurship 101" />
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+            <!-- Time tile (bottom-right) -->
+            <!-- TIME -> row 3 left on mobile -->
+            <div class="grid-item time-tile p-3 sm:p-4 row-start-3 col-start-1 col-span-2 aspect-square md:aspect-auto md:row-start-1 md:col-start-5 md:col-span-1">
+                <p id="liveTime" aria-live="polite">--:--:--</p>
+            </div>
+        
+        <!-- EDUCATION -> row 7 full width on mobile -->
+    <div class="grid-item education has-tabs row-start-7 col-span-6 md:row-start-2 md:col-start-5 md:col-span-2">
+            <div class="bento-tabs-container">
+                <nav class="bento-tabs-nav" role="tablist" aria-label="Education Tabs">
+                    <button class="bento-tab-button active" id="tab-college" role="tab" aria-selected="true" aria-controls="college" data-tab="college">COLLEGE</button>
+                    <button class="bento-tab-button" id="tab-shs" role="tab" aria-selected="false" aria-controls="shs" data-tab="shs">SENIOR HIGH SCHOOL</button>
+                </nav>
+                <div class="bento-tabs-content">
+                    <div id="college" class="bento-tab-panel active" role="tabpanel" aria-labelledby="tab-college">
+                        <div class="id-card grid grid-cols-[56px_1fr] md:grid-cols-[72px_1fr] gap-2 md:gap-3 px-2 py-2 md:px-3 md:py-2">
+                            <div class="id-card__brand">
+                                <img src="data/Adamson_University_Official_Seal.png" alt="Adamson University logo" class="company-logo" />
+                            </div>
+                            <div class="id-card__body">
+                                <h3 class="id-card__title text-[1rem] md:text-[1.05rem]">Adamson University</h3>
+                                <p class="id-card__meta text-[0.84rem] md:text-[0.9rem]">Bachelor of Science in Computer Science</p>
+                                <p class="id-card__meta text-[0.84rem] md:text-[0.9rem]">JUL 2024</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="shs" class="bento-tab-panel" role="tabpanel" aria-labelledby="tab-shs" hidden>
+                        <div class="id-card grid grid-cols-[56px_1fr] md:grid-cols-[72px_1fr] gap-2 md:gap-3 px-2 py-2 md:px-3 md:py-2">
+                            <div class="id-card__brand">
+                                <img src="data/MPCA_Seal.png" alt="Montessori Professional Colleges of Asia logo" class="company-logo" />
+                            </div>
+                            <div class="id-card__body">
+                                <h3 class="id-card__title text-[1rem] md:text-[1.05rem]">Montessori Professional Colleges of Asia</h3>
+                                <p class="id-card__meta text-[0.84rem] md:text-[0.9rem]">Information and Communication Technology (ICT)</p>
+                                <p class="id-card__meta text-[0.84rem] md:text-[0.9rem]">JUN 2020</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- WORK -> row 6 full width on mobile -->
+    <div class="grid-item work-experience has-tabs row-start-6 col-span-6 md:row-start-3 md:col-start-5 md:col-span-2">
+            <div class="bento-tabs-container">
+                <nav class="bento-tabs-nav" role="tablist" aria-label="Experience Tabs">
+                    <button class="bento-tab-button active" id="tab-exp3" role="tab" aria-selected="true" aria-controls="exp3" data-tab="exp3">EXP 3</button>
+                    <button class="bento-tab-button" id="tab-exp2" role="tab" aria-selected="false" aria-controls="exp2" data-tab="exp2">EXP 2</button>
+                    <button class="bento-tab-button" id="tab-exp1" role="tab" aria-selected="false" aria-controls="exp1" data-tab="exp1">EXP 1</button>
+                </nav>
+                <div class="bento-tabs-content">
+                    <div id="exp3" class="bento-tab-panel active" role="tabpanel" aria-labelledby="tab-exp3">
+                        <div class="id-card grid grid-cols-[56px_1fr] md:grid-cols-[72px_1fr] gap-2 md:gap-3 px-2 py-2 md:px-3 md:py-2">
+                            <div class="id-card__brand">
+                                <img src="data/freelance-logo.png" alt="Freelance logo" class="company-logo" />
+                            </div>
+                            <div class="id-card__body">
+                                <h3 class="id-card__title text-[1rem] md:text-[1.05rem]">Freelance</h3>
+                                <p class="id-card__meta text-[0.84rem] md:text-[0.9rem]">JR. FRONT-END DEVELOPER</p>
+                                <p class="id-card__meta text-[0.84rem] md:text-[0.9rem]">JUL 2024 - JAN 2025</p>
+                                <div class="id-card__actions">
+                                    <button class="bento-btn bento-btn-sm" data-modal-source="#exp3-details" aria-haspopup="dialog" aria-controls="bento-modal">DETAILS</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="exp3-details" class="bento-list-card" hidden>
+                            <ul class="bento-list">
+                                <li>Helped augment UI/UX project designs in Figma.</li>
+                                <li>Created a series of responsive web pages using HTML, SCSS, and Typescript in accordance with the initial Figma designs.</li>
+                                <li>Coordinated with the development team to complete project deliverables on time.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="exp2" class="bento-tab-panel" role="tabpanel" aria-labelledby="tab-exp2" hidden>
+                        <div class="id-card grid grid-cols-[56px_1fr] md:grid-cols-[72px_1fr] gap-2 md:gap-3 px-2 py-2 md:px-3 md:py-2">
+                            <div class="id-card__brand">
+                                <img src="data/blastasia-logo.jpg" alt="BlastAsia, Inc. logo" class="company-logo" />
+                            </div>
+                            <div class="id-card__body">
+                                <h3 class="id-card__title text-[1rem] md:text-[1.05rem]">BlastAsia, Inc.</h3>
+                                <p class="id-card__meta text-[0.84rem] md:text-[0.9rem]">FRONT-END DEVELOPER (Intern)</p>
+                                <p class="id-card__meta text-[0.84rem] md:text-[0.9rem]">MAR 2024 - JUN 2024</p>
+                                <div class="id-card__actions">
+                                    <button class="bento-btn bento-btn-sm" data-modal-source="#exp2-details" aria-haspopup="dialog" aria-controls="bento-modal">DETAILS</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="exp2-details" class="bento-list-card" hidden>
+                            <ul class="bento-list">
+                                <li>Helped augment UI/UX project designs in Figma.</li>
+                                <li>Created a series of responsive web pages using HTML, SCSS, and Typescript in accordance with the initial Figma designs.</li>
+                                <li>Coordinated with the development team to complete project deliverables on time.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="exp1" class="bento-tab-panel" role="tabpanel" aria-labelledby="tab-exp1" hidden>
+                        <div class="id-card grid grid-cols-[56px_1fr] md:grid-cols-[72px_1fr] gap-2 md:gap-3 px-2 py-2 md:px-3 md:py-2">
+                            <div class="id-card__brand">
+                                <img src="data/bacoor-logo.png" alt="Bacoor City Police Station logo" class="company-logo" />
+                            </div>
+                            <div class="id-card__body">
+                                <h3 class="id-card__title text-[1rem] md:text-[1.05rem]">Bacoor City Police Station</h3>
+                                <p class="id-card__meta text-[0.84rem] md:text-[0.9rem]">DATA ENCODER (Work Immersion)</p>
+                                <p class="id-card__meta text-[0.84rem] md:text-[0.9rem]">DEC 2019 - JAN 2020</p>
+                                <div class="id-card__actions">
+                                    <button class="bento-btn bento-btn-sm" data-modal-source="#exp1-details" aria-haspopup="dialog" aria-controls="bento-modal">DETAILS</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="exp1-details" class="bento-list-card" hidden>
+                            <ul class="bento-list">
+                                <li>Handled data encoding tasks under the warrant section and other documentation-related tasks that were given by the coordinator.</li>
+                                <li>Practiced using Microsoft Word and Excel for tasks.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+
+    </div>
+
+<!-- Reusable Modal -->
+<div id="bento-modal" class="bento-modal" role="dialog" aria-modal="true" aria-labelledby="bento-modal-title" hidden>
+    <div class="bento-modal__overlay" data-modal-close></div>
+    <div class="bento-modal__dialog" role="document">
+        <div class="bento-modal__header">
+            <h2 id="bento-modal-title" class="bento-modal__title">Details</h2>
+            <button class="bento-modal__close" type="button" aria-label="Close" data-modal-close>&times;</button>
+        </div>
+        <div class="bento-modal__body" id="bento-modal-body"></div>
+    </div>
+</div>
+
+    </div>
+
+<script src="index.js"></script>
+</body>
+</html>
