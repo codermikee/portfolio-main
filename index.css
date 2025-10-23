@@ -1,6 +1,6 @@
-.profile-main { display: flex; flex-direction: column; align-items: center; gap: 0.35rem; }
-/* Code Projects (left bottom) */
-.code-projects { text-align: center; }
+/* NOTE: Utility-driven layout (profile, headings, and small tile alignment)
+    is now handled with Tailwind classes in the HTML. The old custom rules
+    were removed to avoid duplication. */
 /* DrawYourBrand removed; using Google Font 'Quicksand' for base text */
 
 /* --- Root Styles and Grid Background --- */
@@ -56,8 +56,7 @@ h3 { font-family: 'JetBrains Mono', 'Quicksand', sans-serif; }
 .title, p { font-family: 'Quicksand', sans-serif; }
 /* Center key headings across pages */
 h1 { text-align: center; }
-/* Center profile name/title text blocks */
-.name, .title { text-align: center; }
+/* Profile name/title alignment moved to Tailwind utilities in HTML */
 
 /* --- Bento Grid Container --- */
 .bento-grid-container {
@@ -172,24 +171,29 @@ h1 { text-align: center; }
 .gifs { display: flex; align-items: stretch; justify-content: center; overflow: hidden; }
 
 /* UI Projects (Rows 2-3, column 1) */
-.ui-projects { text-align: center; }
+/* .ui-projects now uses Tailwind utilities (text-center) in HTML */
 
 /* Clickable tiles */
 .clickable { cursor: pointer; }
 .clickable:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
 
 /* Profile area placement handled by Tailwind on mobile and grid-areas on desktop */
-.profile-card {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.profile-card { /* keep profile banner base styles here; layout (padding/spacing) moved to Tailwind */
     position: relative;
     background: var(--profile-banner-bg);
     border-radius: inherit; /* match tile corners exactly */
     overflow: hidden; /* contain animated overlay */
 }
+
+/* Profile picture border uses the accent variable so it follows active swatch */
+.profile-pic-border {
+    border-color: var(--profile-border-color, var(--item-border-color)) !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    transition: border-color 200ms ease, box-shadow 200ms ease;
+}
+
+/* Decorative blended glow using pseudo-element so the accent color blends subtly */
+/* Decorative glow removed; border now follows --item-border-color directly. */
 /* Animated dotted overlay (snowfall) on the profile banner */
 .profile-card::before {
     content: '';
@@ -233,27 +237,10 @@ h1 { text-align: center; }
 }
 .social-link:hover { background: var(--tab-bg-active); color: var(--tab-text-active); transform: translateY(-1px); }
 .social-link .icon { width: 18px; height: 18px; display: block; }
-.profile-pic {
-    width: 120px; /* Slightly smaller for a sleek look */
-    height: 120px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid var(--item-border-color);
-    background: #DDD;
-    margin-bottom: 6px;
-}
-.name {
-    font-weight: bold;
-    font-size: 1.2rem;
-    margin-bottom: 2px;
-}
-.title {
-    font-size: 0.95rem;
-    color: #666;
-}
+/* NOTE: Removed concrete sizing rules for .profile-pic, .name, .title to avoid empty rulesets;
+    Use Tailwind utilities on the elements in HTML for responsive sizing. */
 /* Improve contrast for text and controls on the profile banner */
-.profile-card .name,
-.profile-card .title { color: #f0f0f0; }
+/* Profile name/title color is handled via Tailwind classes on the elements (dark/light). */
 .profile-card .social-link {
     background: rgba(255,255,255,0.08);
     color: #f0f0f0;
@@ -312,30 +299,35 @@ h1 { text-align: center; }
     --tab-bg-active: #000000;
     --pixel-bg: rgba(0,0,0,0.08);
     --snow-dot-color: rgba(255, 255, 255, 0.288);
+    --profile-border-color: #8d8d8d;
 }
 .accent-red {
     --item-border-color: #a83c3c;
     --tab-bg-active: #a83c3c;
     --pixel-bg: rgba(198,40,40,0.12);
     --snow-dot-color: rgba(187, 180, 141, 0.651);
+    --profile-border-color: #ce5858;
 }
 .accent-blue {
     --item-border-color: #3860aa;
     --tab-bg-active: #3860aa;
     --pixel-bg: rgba(21,101,192,0.12);
     --snow-dot-color: rgba(255,255,255,0.288);
+    --profile-border-color: #6f96df;
 }
 .accent-green {
     --item-border-color: #214622;
     --tab-bg-active: #214622;
     --pixel-bg: rgba(46,125,50,0.12);
     --snow-dot-color: rgba(255,255,255,0.288);
+    --profile-border-color: #4b7e4e;
 }
 .accent-purple {
     --item-border-color: #7d648d;
     --tab-bg-active: #7d648d;
     --pixel-bg: rgba(106,27,154,0.12);
     --snow-dot-color: rgba(255,255,255,0.288);
+    --profile-border-color: #c89de4;
 }
 
 /* Work Experience (Row 4 only, columns 5-6) */
@@ -757,22 +749,17 @@ h1 { text-align: center; }
 
 /* About page responsive layout moved to Tailwind utilities in HTML */
 /* Time tile (right-bottom) */
-.time-tile { text-align: center; }
-.time-tile p { font-family: 'JetBrains Mono', monospace; font-size: clamp(0.9rem, 3.5vw, 1.25rem); margin: 0.5rem 0 0; }
+/* NOTE: .time-tile layout and font sizing is now handled with Tailwind utilities
+    directly in the HTML (responsive font sizes and flex/grid utilities). */
 
-/* Extra small screens: shrink swatches and theme toggle */
-@media (max-width: 400px) {
-    .accent-swatch { width: 18px; height: 18px; }
-    .theme-track { width: 42px; height: 20px; }
-    .theme-thumb { width: 18px; height: 18px; }
-    .theme-toggle input:checked + .theme-track .theme-thumb { left: calc(100% - 2px - 18px); }
-}
-@media (max-width: 320px) {
-    .accent-swatch { width: 16px; height: 16px; }
-    .theme-track { width: 38px; height: 18px; }
-    .theme-thumb { width: 16px; height: 16px; }
-    .theme-toggle input:checked + .theme-track .theme-thumb { left: calc(100% - 2px - 16px); }
-}
+/* NOTE: Mobile responsive sizing (swatches, theme toggle, small tweaks) is handled via
+     Tailwind utility classes in the HTML. The previous @media rules were removed so
+     mobile behavior is controlled consistently with Tailwind responsive utilities.
+     Example replacements in HTML:
+         - use `w-4 h-4 sm:w-5 sm:h-5` on `.accent-swatch` for small-to-medium sizes
+         - use `w-10 h-5 sm:w-12 sm:h-6` on `.theme-track` and adjust thumb with absolute
+             positioning utilities for breakpoints as needed.
+*/
 
 /* Snowfall animation for profile banner overlay */
 @keyframes snowfall {
@@ -870,15 +857,8 @@ h1 { text-align: center; }
     align-items: center;
 }
 .grid-item.education .bento-tab-panel { width: 100%; }
-/* Slightly taller on very small devices to avoid crowding */
-@media (max-width: 380px) {
-    .grid-item.education { --edu-panel-height: 146px; }
-}
-
-/* Optional: tighten tab button text a hair on very small screens */
-@media (max-width: 380px) {
-    .grid-item.education .bento-tab-button,
-    .grid-item.work-experience .bento-tab-button {
-        font-size: 0.85rem;
-    }
-}
+/* NOTE: Small-breakpoint tweaks for education panel height and tab font-size are
+   now recommended to be applied with Tailwind responsive utilities (e.g.
+   `sm:` or `md:` prefixes) directly in the HTML to keep styles consistent
+   with the project's Tailwind-first approach.
+*/

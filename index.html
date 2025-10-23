@@ -68,22 +68,22 @@
         </div>
 
         <!-- CODE PROJECTS -> row 4 right half on mobile -->
-    <div class="grid-item code-projects clickable p-3 sm:p-4 row-start-4 col-start-4 col-span-3 md:row-start-3 md:col-start-1 md:row-span-2 md:col-span-1" role="link" tabindex="0" aria-label="Go to Code Projects" data-href="code.html">
-            <h3>CODE PROJECTS</h3>
+    <div class="grid-item code-projects clickable p-3 sm:p-4 text-center row-start-4 col-start-4 col-span-3 md:row-start-3 md:col-start-1 md:row-span-2 md:col-span-1" role="link" tabindex="0" aria-label="Go to Code Projects" data-href="code.html">
+            <h3 class="leading-tight">CODE<br/>PROJECTS</h3>
         </div>
 
         <!-- FEATURED DESIGNS -> row 4 left half on mobile -->
-    <div class="grid-item ui-projects clickable p-3 sm:p-4 row-start-4 col-start-1 col-span-3 md:row-start-1 md:row-span-2 md:col-start-1 md:col-span-1" role="link" tabindex="0" aria-label="Go to Featured Designs" data-href="designs.html">
-            <h3 class="whitespace-nowrap md:whitespace-normal tracking-[1px] md:tracking-[2px] text-sm sm:text-base md:text-base leading-tight">FEATURED DESIGNS</h3>
+    <div class="grid-item ui-projects designs clickable p-3 sm:p-4 text-center row-start-4 col-start-1 col-span-3 md:row-start-1 md:row-span-2 md:col-start-1 md:col-span-1" role="link" tabindex="0" aria-label="Go to Featured Designs" data-href="designs.html">
+        <h3 class="leading-tight">FEATURED<br/>DESIGNS</h3>
         </div>
 
         <!-- PROFILE -> row 1 full width on mobile -->
     <div class="grid-item profile-info p-3 sm:p-4 row-start-1 col-span-6 md:row-start-2 md:row-span-2 md:col-start-2 md:col-span-3 min-h-[240px] md:min-h-0">
-            <div class="profile-card py-3 px-3 md:py-0 md:px-0">
-                <div class="profile-main gap-2">
-                    <img src="data/pfp.png" alt="Profile picture" class="profile-pic w-24 h-24 sm:w-28 sm:h-28 md:w-[120px] md:h-[120px]" />
-                    <p class="name">MIKE JOMARI RIVERA</p>
-                    <p class="title">Junior Web Developer<br/>UI/UX Designer</p>
+            <div class="profile-card flex items-center justify-center h-full p-3 sm:p-4 md:p-0">
+                <div class="flex flex-col items-center gap-2">
+                        <img src="data/pfp.png" alt="Profile picture" class="profile-pic profile-pic-border w-[140px] h-[140px] rounded-full border-4 object-cover" />
+                    <p class="name font-semibold text-lg sm:text-xl md:text-[1.2rem] mb-0.5 text-center text-white tracking-[2px]">MIKE JOMARI RIVERA</p>
+                    <p class="title text-sm sm:text-base md:text-[0.95rem] text-white text-center tracking-[1px]">Junior Web Developer<br/>UI/UX Designer</p>
                     <ul class="social-icons" aria-label="Social links">
                         <li>
                             <a class="social-link" href="#" target="_blank" rel="noopener" aria-label="GitHub">
@@ -180,8 +180,8 @@
         
             <!-- Time tile (bottom-right) -->
             <!-- TIME -> row 3 left on mobile -->
-            <div class="grid-item time-tile p-3 sm:p-4 row-start-3 col-start-1 col-span-2 aspect-square md:aspect-auto md:row-start-1 md:col-start-5 md:col-span-1">
-                <p id="liveTime" aria-live="polite">--:--:--</p>
+            <div class="grid-item time-tile p-3 sm:p-4 row-start-3 col-start-1 col-span-2 aspect-square md:aspect-auto md:row-start-1 md:col-start-5 md:col-span-1 flex items-center justify-center">
+                <p id="liveTime" aria-live="polite" class="font-mono text-[clamp(0.75rem,3.2vw,1rem)] sm:text-[clamp(0.85rem,2.4vw,1.1rem)] leading-tight overflow-hidden text-ellipsis whitespace-nowrap max-w-full">--:--:--</p>
             </div>
         
         <!-- EDUCATION -> row 7 full width on mobile -->

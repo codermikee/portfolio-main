@@ -190,14 +190,25 @@ document.addEventListener('DOMContentLoaded', () => {
     // Live time tile
     const timeEl = document.getElementById('liveTime');
     if (timeEl) {
+        // Use Intl API to format time in Philippine Time (Asia/Manila)
+        const manilaFormatter = new Intl.DateTimeFormat('en-US', {
+            timeZone: 'Asia/Manila',
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: true,
+        });
+
+        let lastText = '';
         const update = () => {
             const now = new Date();
-            const hh = String(now.getHours()).padStart(2, '0');
-            const mm = String(now.getMinutes()).padStart(2, '0');
-            const ss = String(now.getSeconds()).padStart(2, '0');
-            timeEl.textContent = `${hh}:${mm}:${ss}`;
+            const formatted = manilaFormatter.format(now); // e.g. "07:45 PM"
+            if (formatted !== lastText) {
+                lastText = formatted;
+                timeEl.textContent = formatted;
+            }
         };
         update();
+        // still update every second to catch minute rollovers promptly
         setInterval(update, 1000);
     }
 
