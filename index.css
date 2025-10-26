@@ -277,12 +277,12 @@ h1 { text-align: center; }
     --item-bg: rgba(255,255,255,0.9);
 }
 .theme-dark {
-    --bg-color: #111111;
+    --bg-color: #050505;
     --tab-text: #eaeaea;
     /* Make cards/dialogs solid in dark mode */
     --item-bg: #000000;
     /* Use a darker tab/background line color for dark mode */
-    --tab-bg: #2a2a2a;
+    --tab-bg: #0f0f0f;
 }
 
 /* Solidize specific components in dark mode */
@@ -290,7 +290,7 @@ h1 { text-align: center; }
     background-color: #202020; /* replace translucent white */
 }
 .theme-dark .bento-grid-container {
-    background-color: #1616162d; /* replace light translucent container */
+    background-color: #16161613; /* replace light translucent container */
 }
 
 /* Accent palettes */
@@ -736,6 +736,10 @@ h1 { text-align: center; }
     transform-origin: center;
     transition: transform 180ms ease;
 }
+.theme-dark.accent-black .sidebar-nav .nav-link::after {
+    /* In dark mode with black accent, use a lighter gray for better contrast */
+    background: #9ca3af; /* Tailwind gray-400 */
+}
 .sidebar-nav .nav-link:hover::after,
 .sidebar-nav .nav-link:focus-visible::after { transform: scaleX(1); }
 .sidebar-nav .nav-link:hover { background: rgba(0,0,0,0.05); }
@@ -745,7 +749,37 @@ h1 { text-align: center; }
     background: var(--tab-bg-active);
     color: var(--tab-text-active);
 }
+.theme-dark.accent-black .sidebar-nav .nav-link.is-active,
+.theme-dark.accent-black .sidebar-nav .nav-link[aria-current="page"] {
+    /* In dark mode with black accent, lighten the active pill for contrast */
+    background: #1f2937; /* Tailwind gray-800 */
+}
 .sidebar-nav .nav-link:focus-visible { outline: 2px dashed var(--item-border-color); outline-offset: 2px; }
+
+/* Nav icons + labels */
+.sidebar-nav .nav-link .nav-icon { width: 18px; height: 18px; display: inline-block; }
+.desktop-nav .nav-link { display: inline-flex; align-items: center; gap: 0.4rem; }
+.desktop-nav .nav-link .nav-label { display: inline; }
+
+/* Reuse the same hover-underline effect for clickable tiles on the homepage */
+.tile-hover { position: relative; transition: background-color 0.2s ease, color 0.2s ease; }
+.tile-hover::after {
+    content: '';
+    position: absolute;
+    left: 12px;
+    right: 12px;
+    bottom: 10px; /* a bit higher to avoid overlapping grid border */
+    height: 2px;
+    background: var(--tab-bg-active);
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 180ms ease;
+}
+.theme-dark.accent-black .tile-hover::after { background: #9ca3af; }
+.tile-hover:hover::after,
+.tile-hover:focus-visible::after { transform: scaleX(1); }
+.tile-hover:hover { background: rgba(0,0,0,0.05); }
+.theme-dark .tile-hover:hover { background: #2a2a2a; }
 
 /* About page responsive layout moved to Tailwind utilities in HTML */
 /* Time tile (right-bottom) */
@@ -765,6 +799,13 @@ h1 { text-align: center; }
 @keyframes snowfall {
     0% { background-position: 0 0; }
     100% { background-position: 0 1000px; }
+}
+
+/* --- Media/thumbnail background that follows theme + accent --- */
+/* Base color follows theme's tab background; overlay tint follows accent via --pixel-bg */
+.theme-media-bg {
+    background-color: var(--tab-bg);
+    background-image: linear-gradient(var(--pixel-bg), var(--pixel-bg));
 }
 
 /* Remove inner padding so the banner fills the entire profile tile */
@@ -848,6 +889,168 @@ h1 { text-align: center; }
     /* Smaller responsive range to ensure full visibility on narrow widths */
     font-size: clamp(0.66rem, 1.8vw + 0.28rem, 0.88rem) !important;
 }
+
+/* --- Masonry helpers (column-based, gap-safe) --- */
+/* Use CSS columns for a lightweight masonry layout that preserves the existing theme */
+.masonry {
+    /* column-gap controls horizontal spacing between columns */
+    -webkit-column-gap: 0.75rem;
+            column-gap: 0.75rem;
+}
+.masonry-1 { -webkit-column-count: 1; column-count: 1; }
+.masonry-2 { -webkit-column-count: 2; column-count: 2; }
+.masonry-3 { -webkit-column-count: 3; column-count: 3; }
+.masonry-4 { -webkit-column-count: 4; column-count: 4; }
+
+/* Individual masonry items must avoid breaking inside columns */
+.masonry-item {
+    display: inline-block; /* make items respect column flow */
+    width: 100%;
+    margin: 0 0 0.75rem; /* vertical spacing between items */
+    -webkit-column-break-inside: avoid;
+            break-inside: avoid;
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--item-bg);
+    border: 2px solid var(--item-border-color);
+}
+
+/* Media-friendly defaults: prefer 1 column on small screens, 2 on sm, 3 on md+ */
+@media (max-width: 639px) {
+    .masonry-responsive { -webkit-column-count: 1; column-count: 1; }
+}
+@media (min-width: 640px) and (max-width: 1023px) {
+    .masonry-responsive { -webkit-column-count: 2; column-count: 2; }
+}
+@media (min-width: 1024px) {
+    .masonry-responsive { -webkit-column-count: 3; column-count: 3; }
+}
+
+/* Image utilities inside masonry items */
+.masonry-item img { width: 100%; height: auto; display: block; }
+
+/* Mobile/desktop nav separation: show only one nav per viewport */
+.mobile-nav { display: none; gap: 0.5rem; }
+.desktop-nav { display: flex; gap: 0.5rem; }
+@media (max-width: 640px) {
+    /* Transform header card into a rounded pill across the viewport */
+    header .bento-card {
+        /* match desktop radius for consistency */
+        border-radius: 10px;
+        padding: 0.5rem 0.75rem;
+        display: flex;
+        align-items: center;
+        justify-content: center; /* center contents; we'll position controls absolutely */
+        position: relative;
+    }
+    /* Center links horizontally and space them like in the mock */
+    .mobile-nav { display: flex; gap: 1.5rem; justify-content: center; align-items: center; }
+    /* Inactive: compact circular buttons */
+    .mobile-nav .nav-link { padding: 0.5rem; border-radius: 999px; width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center; }
+    .mobile-nav .nav-label { display: none; }
+    /* Active page: show label and expand to a pill */
+    .mobile-nav .nav-link.is-active,
+    .mobile-nav .nav-link[aria-current="page"] { width: auto; padding: 0.5rem 0.75rem; gap: 0.4rem; }
+    .mobile-nav .nav-link.is-active .nav-label,
+    .mobile-nav .nav-link[aria-current="page"] .nav-label { display: inline; }
+
+    /* Compact the controls into a right-side cluster (absolute) */
+    .bento-card > .flex.items-center.gap-3 { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); }
+    /* Hide header controls on mobile; they'll appear in a dropdown when toggled */
+    /* keep header-controls in DOM; reveal via controls-open state */
+    .header-controls { display: flex; align-items: center; }
+    .header-controls.controls-open {
+        display: flex;
+        position: absolute;
+        right: 12px;
+        top: calc(100% + 8px);
+        background: var(--item-bg);
+        border: 2px solid var(--item-border-color);
+        padding: 8px;
+        border-radius: 10px;
+        flex-direction: column; /* row1: theme toggle, row2: horizontal swatches */
+        gap: 8px;
+        z-index: 60;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+        min-width: 160px;
+        max-width: min(92vw, 340px); /* clamp to viewport */
+    }
+    /* caret (arrow) that visually points to the hamburger. Uses a CSS variable --caret-x
+       set by JS to horizontally position the caret relative to the panel. */
+    /* Bordered caret: outer border (pseudo) + inner fill for stronger contrast */
+    .header-controls.controls-open::before,
+    .header-controls.controls-open::after {
+        content: '';
+        position: absolute;
+        left: calc(var(--caret-x, 50%) - 10px);
+        width: 0;
+        height: 0;
+        pointer-events: none;
+        transition: transform 180ms ease, opacity 180ms ease, left 180ms ease;
+        opacity: 0.98;
+    }
+    /* outer border triangle (slightly larger) */
+    .header-controls.controls-open::before{
+        top: -10px;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-bottom: 10px solid var(--item-border-color); /* border color matches panel border */
+        filter: drop-shadow(0 3px 8px rgba(0,0,0,0.12));
+    }
+    /* inner fill triangle (on top of the border) */
+    .header-controls.controls-open::after{
+        top: -8px;
+        border-left: 8px solid transparent;
+        border-right: 8px solid transparent;
+        border-bottom: 8px solid var(--item-bg);
+    }
+    /* Flipped (above): move triangles to the bottom edge and invert direction */
+    .header-controls.controls-open.flipped::before{ top: auto; bottom: -10px; border-bottom: none; border-top: 10px solid var(--item-border-color); }
+    .header-controls.controls-open.flipped::after{ top: auto; bottom: -8px; border-bottom: none; border-top: 8px solid var(--item-bg); }
+
+    /* subtle pop + translate for better flip visuals */
+    .header-controls.controls-open { transition: opacity 200ms ease, transform 200ms cubic-bezier(.2,.9,.2,1); }
+    .header-controls.controls-open.flipped { transform-origin: bottom center; }
+    /* Make the theme track look like an oval button on mobile */
+    .theme-track { width: 44px; height: 26px; }
+    .theme-thumb { width: 18px; height: 18px; }
+    /* Arrange accent swatches horizontally in the dropdown and keep compact sizes */
+    .accent-controls { display: flex; flex-direction: row; gap: 8px; align-items: center; justify-content: center; }
+    .accent-controls .accent-swatch { width: 16px; height: 16px; }
+    .mobile-nav-toggle { display: inline-flex; }
+    /* Hide the desktop nav on small screens */
+    .desktop-nav { display: none !important; }
+}
+@media (min-width: 641px) {
+    .mobile-nav-toggle { display: none; }
+    /* Hide the mobile nav on larger screens and ensure desktop shows */
+    .mobile-nav { display: none !important; }
+    .desktop-nav { display: flex !important; }
+}
+
+/* Ensure theme controls remain fully hidden on mobile unless dropdown is explicitly opened */
+@media (max-width: 640px) {
+    /* keep the container in the flow but hidden via opacity/transform so we can animate it */
+    header .bento-card .header-controls {
+        display: flex !important;
+        opacity: 0;
+        transform: translateY(-6px);
+        pointer-events: none;
+        visibility: hidden;
+        transition: opacity 200ms ease, transform 200ms ease;
+    }
+    /* hide inner elements until opened */
+    header .bento-card .header-controls * { visibility: hidden; pointer-events: none; }
+    /* when open, reveal and enable interactions (fade + slide) */
+    header .bento-card .header-controls.controls-open {
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+        pointer-events: auto !important;
+        visibility: visible !important;
+    }
+    header .bento-card .header-controls.controls-open * { visibility: visible !important; pointer-events: auto !important; }
+}
+
 
 /* Equalize Education tab panel height across College/SHS */
 .grid-item.education { --edu-panel-height: 134px; }

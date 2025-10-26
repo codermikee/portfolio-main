@@ -21,13 +21,262 @@
 </head>
 <body class="theme-light accent-black min-h-screen">
   <div id="app">
-  <div class="bento-grid-container max-w-[800px] mx-auto p-3 sm:p-4">
-    <div class="grid-item p-3 sm:p-4" style="grid-column:auto;grid-row:auto;">
-      <h1>Code Projects</h1>
-      <p>This is a placeholder page. Replace with your code projects content.</p>
-      <p><a href="index.html">Back to Home</a></p>
-    </div>
+    <main class="max-w-[1100px] mx-auto p-3 sm:p-4" aria-labelledby="code-title">
+      <!-- Top navigation: mirrors About/Designs -->
+      <header class="mb-4">
+        <div class="bento-card p-2 flex items-center justify-between gap-2">
+          <nav aria-label="Primary" class="sidebar-nav desktop-nav flex items-center gap-2">
+            <a href="index.html" class="nav-link px-3 py-2 rounded-full text-xs sm:text-sm font-medium tracking-normal inline-flex items-center gap-2">
+              <svg class="nav-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5V21a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-10.5Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span class="nav-label">Home</span>
+            </a>
+            <a href="about.html" class="nav-link px-3 py-2 rounded-full text-xs sm:text-sm font-medium tracking-normal inline-flex items-center gap-2">
+              <svg class="nav-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 21a8 8 0 1 1 16 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span class="nav-label">About</span>
+            </a>
+            <a href="designs.html" class="nav-link px-3 py-2 rounded-full text-xs sm:text-sm font-medium tracking-normal inline-flex items-center gap-2">
+              <svg class="nav-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                <rect x="3" y="5" width="18" height="14" rx="2" ry="2" fill="none" stroke="currentColor" stroke-width="2"/>
+                <circle cx="9" cy="10" r="1.5" fill="none" stroke="currentColor" stroke-width="2"/>
+                <path d="M5 17l5-5 3.5 3.5L18 11l3 3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span class="nav-label">Featured Designs</span>
+            </a>
+            <a href="code.html" class="nav-link px-3 py-2 rounded-full text-xs sm:text-sm font-medium tracking-normal inline-flex items-center gap-2">
+              <svg class="nav-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                <rect x="3" y="4" width="18" height="12" rx="2" ry="2" fill="none" stroke="currentColor" stroke-width="2"/>
+                <path d="M2 20h20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+              <span class="nav-label">Code Projects</span>
+            </a>
+          </nav>
+          <!-- Mobile hamburger -->
+          <button class="mobile-nav-toggle inline-flex items-center justify-center p-2 sm:hidden" aria-label="Toggle navigation" aria-expanded="false">
+            <svg class="icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"></path></svg>
+          </button>
+          <nav aria-label="Primary" class="sidebar-nav mobile-nav flex items-center gap-2">
+            <a href="index.html" class="nav-link px-3 py-2 rounded-full text-xs sm:text-sm font-medium tracking-normal inline-flex items-center justify-center" aria-label="Home">
+              <svg class="nav-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5V21a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-10.5Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span class="nav-label">Home</span>
+            </a>
+            <a href="about.html" class="nav-link px-3 py-2 rounded-full text-xs sm:text-sm font-medium tracking-normal inline-flex items-center justify-center" aria-label="About">
+              <svg class="nav-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 21a8 8 0 1 1 16 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span class="nav-label">About</span>
+            </a>
+            <a href="designs.html" class="nav-link px-3 py-2 rounded-full text-xs sm:text-sm font-medium tracking-normal inline-flex items-center justify-center" aria-label="Featured Designs">
+              <svg class="nav-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                <rect x="3" y="5" width="18" height="14" rx="2" ry="2" fill="none" stroke="currentColor" stroke-width="2"/>
+                <circle cx="9" cy="10" r="1.5" fill="none" stroke="currentColor" stroke-width="2"/>
+                <path d="M5 17l5-5 3.5 3.5L18 11l3 3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span class="nav-label">Featured Designs</span>
+            </a>
+            <a href="code.html" class="nav-link px-3 py-2 rounded-full text-xs sm:text-sm font-medium tracking-normal inline-flex items-center justify-center" aria-label="Code Projects">
+              <svg class="nav-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                <rect x="3" y="4" width="18" height="12" rx="2" ry="2" fill="none" stroke="currentColor" stroke-width="2"/>
+                <path d="M2 20h20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+              <span class="nav-label">Code Projects</span>
+            </a>
+          </nav>
+          <div class="flex items-center gap-3 header-controls">
+            <div class="theme-controls">
+              <label class="theme-toggle" title="Toggle dark mode">
+                <input type="checkbox" id="themeToggle" data-theme-toggle aria-label="Toggle theme" />
+                <span class="theme-track">
+                  <svg class="icon sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><line x1="12" y1="1" x2="12" y2="4"></line><line x1="12" y1="20" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="6.34" y2="6.34"></line><line x1="17.66" y1="17.66" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="4" y2="12"></line><line x1="20" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="6.34" y2="17.66"></line><line x1="17.66" y1="6.34" x2="19.78" y2="4.22"></line></svg>
+                  <svg class="icon moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                  <span class="theme-thumb" aria-hidden="true"></span>
+                </span>
+              </label>
+            </div>
+            <div class="accent-controls" role="group" aria-label="Choose accent color">
+              <button class="accent-swatch swatch-black" data-accent="black" aria-label="Black accent"></button>
+              <button class="accent-swatch swatch-red" data-accent="red" aria-label="Red accent"></button>
+              <button class="accent-swatch swatch-blue" data-accent="blue" aria-label="Blue accent"></button>
+              <button class="accent-swatch swatch-green" data-accent="green" aria-label="Green accent"></button>
+              <button class="accent-swatch swatch-purple" data-accent="purple" aria-label="Purple accent"></button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <article class="article-content cardless text-[15px] sm:text-base leading-relaxed">
+        <!-- Intro card -->
+        <section class="bento-card p-4 sm:p-5 mb-4">
+          <h1 id="code-title" class="text-2xl font-semibold text-left">Code Projects</h1>
+          <p class="mt-2 text-sm text-gray-600 dark:text-gray-300">A curated list of my development work. Layout matches the site theme and uses a simple horizontal slider: 1 card on mobile, 3 cards on desktop.</p>
+        </section>
+
+        <!-- Helper: reusable carousel section pattern -->
+        <!-- MAIN PROJECTS -->
+        <section class="mb-6">
+          <div class="mb-3">
+            <h2 class="text-xl font-semibold">Main Projects</h2>
+            <p class="text-xs text-gray-600 dark:text-gray-300">My main set of projects</p>
+          </div>
+          <div class="relative" data-carousel>
+            <button type="button" aria-label="Previous" data-carousel-prev class="absolute left-[-6px] sm:left-[-10px] top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-white/90 dark:bg-neutral-900 border-2 border-[var(--item-border-color)] text-black dark:text-white grid place-items-center shadow-sm hover:opacity-90">
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M15 18l-6-6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <button type="button" aria-label="Next" data-carousel-next class="absolute right-[-6px] sm:right-[-10px] top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-white/90 dark:bg-neutral-900 border-2 border-[var(--item-border-color)] text-black dark:text-white grid place-items-center shadow-sm hover:opacity-90">
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="overflow-hidden snap-x snap-mandatory" data-carousel-viewport>
+              <ul class="flex gap-3 md:gap-4" data-carousel-track role="list">
+                <!-- Repeatable card items -->
+                <li role="listitem" class="bento-card p-3 md:p-4 min-w-full md:min-w-[33.3333%] snap-start">
+                  <div class="aspect-video rounded-md border-2 border-[var(--item-border-color)] bg-gray-300 dark:bg-gray-700 mb-3"></div>
+                  <h3 class="font-mono text-sm">Project Alpha</h3>
+                  <p class="text-xs text-gray-600 dark:text-gray-300">Full‑stack app with auth, API, and responsive UI.</p>
+                  <div class="mt-2 flex gap-2">
+                    <a class="bento-btn bento-btn-sm" href="#">Demo</a>
+                    <a class="bento-btn bento-btn-sm" href="#">Code</a>
+                  </div>
+                </li>
+                <li role="listitem" class="bento-card p-3 md:p-4 min-w-full md:min-w-[33.3333%] snap-start">
+                  <div class="aspect-video rounded-md border-2 border-[var(--item-border-color)] bg-gray-300 dark:bg-gray-700 mb-3"></div>
+                  <h3 class="font-mono text-sm">Project Beta</h3>
+                  <p class="text-xs text-gray-600 dark:text-gray-300">Interactive dashboard with charts and filters.</p>
+                  <div class="mt-2 flex gap-2">
+                    <a class="bento-btn bento-btn-sm" href="#">Demo</a>
+                    <a class="bento-btn bento-btn-sm" href="#">Code</a>
+                  </div>
+                </li>
+                <li role="listitem" class="bento-card p-3 md:p-4 min-w-full md:min-w-[33.3333%] snap-start">
+         <img src="data/GNG.png" alt="AdU - Guide N' Go thumbnail" loading="lazy" decoding="async"
+           class="w-full aspect-video rounded-md border-2 border-[var(--item-border-color)] object-contain theme-media-bg mb-3" />
+                  <h3 class="font-mono text-sm">AdU - Guide N' GO</h3>
+                  <p class="text-xs text-gray-600 dark:text-gray-300">Created as an output for our thesis; A chatbot system that provides answers to frequently asked questions about the university via <b>Forward Neural Networks</b> and <b>Levenshtein Distance Algorithm</b> as its fallback. It uses the univeristy's handbook as its training data. <br> <br>NOTE: In this demo, the training data is not included due to privacy concerns. For an actual demo, please contact me.</p>
+                  <div class="mt-2 flex gap-2">
+                    <a class="bento-btn bento-btn-sm" href="#">Demo</a>
+                    <a class="bento-btn bento-btn-sm" href="#">Code</a>
+                  </div>
+                </li>
+                <li role="listitem" class="bento-card p-3 md:p-4 min-w-full md:min-w-[33.3333%] snap-start">
+                  <div class="aspect-video rounded-md border-2 border-[var(--item-border-color)] bg-gray-300 dark:bg-gray-700 mb-3"></div>
+                  <h3 class="font-mono text-sm">Project Delta</h3>
+                  <p class="text-xs text-gray-600 dark:text-gray-300">Extra item to demo the slider navigation.</p>
+                  <div class="mt-2 flex gap-2">
+                    <a class="bento-btn bento-btn-sm" href="#">Demo</a>
+                    <a class="bento-btn bento-btn-sm" href="#">Code</a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- BASIC PROJECTS -->
+        <section class="mb-6">
+          <div class="mb-3">
+            <h2 class="text-xl font-semibold">Basic Projects</h2>
+            <p class="text-xs text-gray-600 dark:text-gray-300">Projects for learning and practice; small utilities and experiments.</p>
+          </div>
+          <div class="relative" data-carousel>
+            <button type="button" aria-label="Previous" data-carousel-prev class="absolute left-[-6px] sm:left-[-10px] top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-white/90 dark:bg-neutral-900 border-2 border-[var(--item-border-color)] text-black dark:text-white grid place-items-center shadow-sm hover:opacity-90">
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M15 18l-6-6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <button type="button" aria-label="Next" data-carousel-next class="absolute right-[-6px] sm:right-[-10px] top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-white/90 dark:bg-neutral-900 border-2 border-[var(--item-border-color)] text-black dark:text-white grid place-items-center shadow-sm hover:opacity-90">
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="overflow-hidden snap-x snap-mandatory" data-carousel-viewport>
+              <ul class="flex gap-3 md:gap-4" data-carousel-track role="list">
+                <li role="listitem" class="bento-card p-3 md:p-4 min-w-full md:min-w-[33.3333%] snap-start">
+                  <div class="aspect-video rounded-md border-2 border-[var(--item-border-color)] bg-gray-300 dark:bg-gray-700 mb-3"></div>
+                  <h3 class="font-mono text-sm">Calculator</h3>
+                  <p class="text-xs text-gray-600 dark:text-gray-300">Vanilla JS calculator with keyboard support.</p>
+                  <div class="mt-2 flex gap-2">
+                    <a class="bento-btn bento-btn-sm" href="#">Demo</a>
+                    <a class="bento-btn bento-btn-sm" href="#">Code</a>
+                  </div>
+                </li>
+                <li role="listitem" class="bento-card p-3 md:p-4 min-w-full md:min-w-[33.3333%] snap-start">
+                  <div class="aspect-video rounded-md border-2 border-[var(--item-border-color)] bg-gray-300 dark:bg-gray-700 mb-3"></div>
+                  <h3 class="font-mono text-sm">Todo List</h3>
+                  <p class="text-xs text-gray-600 dark:text-gray-300">CRUD basics: add, edit, delete, persist to localStorage.</p>
+                  <div class="mt-2 flex gap-2">
+                    <a class="bento-btn bento-btn-sm" href="#">Demo</a>
+                    <a class="bento-btn bento-btn-sm" href="#">Code</a>
+                  </div>
+                </li>
+                <li role="listitem" class="bento-card p-3 md:p-4 min-w-full md:min-w-[33.3333%] snap-start">
+                  <div class="aspect-video rounded-md border-2 border-[var(--item-border-color)] bg-gray-300 dark:bg-gray-700 mb-3"></div>
+                  <h3 class="font-mono text-sm">Weather Widget</h3>
+                  <p class="text-xs text-gray-600 dark:text-gray-300">Fetches current weather and icons from an API.</p>
+                  <div class="mt-2 flex gap-2">
+                    <a class="bento-btn bento-btn-sm" href="#">Demo</a>
+                    <a class="bento-btn bento-btn-sm" href="#">Code</a>
+                  </div>
+                </li>
+                <li role="listitem" class="bento-card p-3 md:p-4 min-w-full md:min-w-[33.3333%] snap-start">
+                  <div class="aspect-video rounded-md border-2 border-[var(--item-border-color)] bg-gray-300 dark:bg-gray-700 mb-3"></div>
+                  <h3 class="font-mono text-sm">Markdown Preview</h3>
+                  <p class="text-xs text-gray-600 dark:text-gray-300">Live Markdown previewer with sanitization.</p>
+                  <div class="mt-2 flex gap-2">
+                    <a class="bento-btn bento-btn-sm" href="#">Demo</a>
+                    <a class="bento-btn bento-btn-sm" href="#">Code</a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- WORDPRESS PROJECTS -->
+        <section class="mb-6">
+          <div class="mb-3">
+            <h2 class="text-xl font-semibold">WordPress Projects</h2>
+            <p class="text-xs text-gray-600 dark:text-gray-300">Client and personal sites built with WordPress and custom themes.</p>
+          </div>
+          <div class="relative" data-carousel>
+            <button type="button" aria-label="Previous" data-carousel-prev class="absolute left-[-6px] sm:left-[-10px] top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-white/90 dark:bg-neutral-900 border-2 border-[var(--item-border-color)] text-black dark:text-white grid place-items-center shadow-sm hover:opacity-90">
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M15 18l-6-6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <button type="button" aria-label="Next" data-carousel-next class="absolute right-[-6px] sm:right-[-10px] top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-white/90 dark:bg-neutral-900 border-2 border-[var(--item-border-color)] text-black dark:text-white grid place-items-center shadow-sm hover:opacity-90">
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="overflow-hidden snap-x snap-mandatory" data-carousel-viewport>
+              <ul class="flex gap-3 md:gap-4" data-carousel-track role="list">
+                <li role="listitem" class="bento-card p-3 md:p-4 min-w-full md:min-w-[33.3333%] snap-start">
+                  <div class="aspect-video rounded-md border-2 border-[var(--item-border-color)] bg-gray-300 dark:bg-gray-700 mb-3"></div>
+                  <h3 class="font-mono text-sm">WP Landing Page</h3>
+                  <p class="text-xs text-gray-600 dark:text-gray-300">Custom theme with block patterns and ACF fields.</p>
+                  <div class="mt-2 flex gap-2">
+                    <a class="bento-btn bento-btn-sm" href="#">Demo</a>
+                    <a class="bento-btn bento-btn-sm" href="#">Code</a>
+                  </div>
+                </li>
+                <li role="listitem" class="bento-card p-3 md:p-4 min-w-full md:min-w-[33.3333%] snap-start">
+                  <div class="aspect-video rounded-md border-2 border-[var(--item-border-color)] bg-gray-300 dark:bg-gray-700 mb-3"></div>
+                  <h3 class="font-mono text-sm">Portfolio Theme</h3>
+                  <p class="text-xs text-gray-600 dark:text-gray-300">Lightweight theme with Tailwind and theme.json.</p>
+                  <div class="mt-2 flex gap-2">
+                    <a class="bento-btn bento-btn-sm" href="#">Demo</a>
+                    <a class="bento-btn bento-btn-sm" href="#">Code</a>
+                  </div>
+                </li>
+                <li role="listitem" class="bento-card p-3 md:p-4 min-w-full md:min-w-[33.3333%] snap-start">
+                  <div class="aspect-video rounded-md border-2 border-[var(--item-border-color)] bg-gray-300 dark:bg-gray-700 mb-3"></div>
+                  <h3 class="font-mono text-sm">Blog Revamp</h3>
+                  <p class="text-xs text-gray-600 dark:text-gray-300">Performance-focused blog with lazy images and SEO.</p>
+                  <div class="mt-2 flex gap-2">
+                    <a class="bento-btn bento-btn-sm" href="#">Demo</a>
+                    <a class="bento-btn bento-btn-sm" href="#">Code</a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- Footer info card -->
+        <section class="bento-card p-4">
+          <p class="text-sm">Use the left and right buttons to navigate each row. Cards auto-resize: one per view on mobile, three on desktop. Add or remove projects by inserting more <code>&lt;li&gt;</code> items inside the track.</p>
+        </section>
+      </article>
+    </main>
   </div>
-  </div>
+  <script src="index.js" defer></script>
 </body>
 </html>

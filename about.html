@@ -19,85 +19,141 @@
   <link rel="stylesheet" href="index.css">
   <script src="index.js" defer></script>
   
-</head>
+  </head>
 <body class="theme-light accent-black min-h-screen">
   <div id="app">
-  <!-- Keep same background via body + CSS vars -->
-  <main class="article-layout grid grid-cols-1 md:[grid-template-columns:300px_1fr] gap-4 max-w-[1100px] mx-auto p-3 sm:p-4" aria-labelledby="about-title">
-    <aside class="article-aside">
-      <!-- Navbar Card -->
-      <div class="bento-card p-2">
-        <nav aria-label="Secondary" class="sidebar-nav flex items-center justify-center gap-1 w-full flex-wrap">
-          <a href="index.html" class="nav-link flex-1 min-w-0 text-center px-3 py-2 rounded-full text-xs sm:text-sm font-medium tracking-normal">Home</a>
-          <a href="designs.html" class="nav-link flex-1 min-w-0 text-center px-3 py-2 rounded-full text-xs sm:text-sm font-medium tracking-normal">Featured Designs</a>
-          <a href="code.html" class="nav-link flex-1 min-w-0 text-center px-3 py-2 rounded-full text-xs sm:text-sm font-medium tracking-normal">Code Projects</a>
-        </nav>
-      </div>
-
-  <!-- Profile Card -->
-  <div class="bento-card p-4">
-        <div class="flex flex-col items-center md:items-center text-center md:text-center gap-1">
-          <div class="flex-1">
-            <div class="name text-lg font-semibold leading-tight md:whitespace-nowrap md:tracking-tight">MIKE JOMARI RIVERA</div>
-            <a href="mailto:mj.rivera070@gmail.com" class="block text-sm text-gray-600 dark:text-gray-300">mj.rivera070@gmail.com</a>
+    <main class="max-w-[1100px] mx-auto p-3 sm:p-4" aria-labelledby="about-title">
+      <!-- Top navigation bar: match designs.html (desktop + mobile) -->
+      <header class="mb-4">
+        <div class="bento-card p-2 flex items-center justify-between gap-2">
+          <nav aria-label="Primary" class="sidebar-nav desktop-nav flex items-center gap-2">
+            <a href="index.html" class="nav-link px-3 py-2 rounded-full text-xs sm:text-sm font-medium tracking-normal inline-flex items-center gap-2">
+              <svg class="nav-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5V21a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-10.5Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span class="nav-label">Home</span>
+            </a>
+            <a href="about.html" class="nav-link px-3 py-2 rounded-full text-xs sm:text-sm font-medium tracking-normal inline-flex items-center gap-2">
+              <svg class="nav-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 21a8 8 0 1 1 16 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span class="nav-label">About</span>
+            </a>
+            <a href="designs.html" class="nav-link px-3 py-2 rounded-full text-xs sm:text-sm font-medium tracking-normal inline-flex items-center gap-2">
+              <svg class="nav-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                <rect x="3" y="5" width="18" height="14" rx="2" ry="2" fill="none" stroke="currentColor" stroke-width="2"/>
+                <circle cx="9" cy="10" r="1.5" fill="none" stroke="currentColor" stroke-width="2"/>
+                <path d="M5 17l5-5 3.5 3.5L18 11l3 3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span class="nav-label">Featured Designs</span>
+            </a>
+            <a href="code.html" class="nav-link px-3 py-2 rounded-full text-xs sm:text-sm font-medium tracking-normal inline-flex items-center gap-2">
+              <svg class="nav-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                <rect x="3" y="4" width="18" height="12" rx="2" ry="2" fill="none" stroke="currentColor" stroke-width="2"/>
+                <path d="M2 20h20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+              <span class="nav-label">Code Projects</span>
+            </a>
+          </nav>
+          <!-- Mobile hamburger -->
+          <button class="mobile-nav-toggle inline-flex items-center justify-center p-2 sm:hidden" aria-label="Toggle navigation" aria-expanded="false">
+            <svg class="icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"></path></svg>
+          </button>
+          <nav aria-label="Primary" class="sidebar-nav mobile-nav flex items-center gap-2">
+            <a href="index.html" class="nav-link px-3 py-2 rounded-full text-xs sm:text-sm font-medium tracking-normal inline-flex items-center justify-center" aria-label="Home">
+              <svg class="nav-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5V21a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-10.5Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span class="nav-label">Home</span>
+            </a>
+            <a href="about.html" class="nav-link px-3 py-2 rounded-full text-xs sm:text-sm font-medium tracking-normal inline-flex items-center justify-center" aria-label="About">
+              <svg class="nav-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 21a8 8 0 1 1 16 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span class="nav-label">About</span>
+            </a>
+            <a href="designs.html" class="nav-link px-3 py-2 rounded-full text-xs sm:text-sm font-medium tracking-normal inline-flex items-center justify-center" aria-label="Featured Designs">
+              <svg class="nav-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                <rect x="3" y="5" width="18" height="14" rx="2" ry="2" fill="none" stroke="currentColor" stroke-width="2"/>
+                <circle cx="9" cy="10" r="1.5" fill="none" stroke="currentColor" stroke-width="2"/>
+                <path d="M5 17l5-5 3.5 3.5L18 11l3 3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span class="nav-label">Featured Designs</span>
+            </a>
+            <a href="code.html" class="nav-link px-3 py-2 rounded-full text-xs sm:text-sm font-medium tracking-normal inline-flex items-center justify-center" aria-label="Code Projects">
+              <svg class="nav-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                <rect x="3" y="4" width="18" height="12" rx="2" ry="2" fill="none" stroke="currentColor" stroke-width="2"/>
+                <path d="M2 20h20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+              <span class="nav-label">Code Projects</span>
+            </a>
+          </nav>
+          <div class="flex items-center gap-3 header-controls">
+            <div class="theme-controls">
+              <label class="theme-toggle" title="Toggle dark mode">
+                <input type="checkbox" id="themeToggle" data-theme-toggle aria-label="Toggle theme" />
+                <span class="theme-track">
+                  <svg class="icon sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><line x1="12" y1="1" x2="12" y2="4"></line><line x1="12" y1="20" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="6.34" y2="6.34"></line><line x1="17.66" y1="17.66" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="4" y2="12"></line><line x1="20" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="6.34" y2="17.66"></line><line x1="17.66" y1="6.34" x2="19.78" y2="4.22"></line></svg>
+                  <svg class="icon moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                  <span class="theme-thumb" aria-hidden="true"></span>
+                </span>
+              </label>
+            </div>
+            <div class="accent-controls" role="group" aria-label="Choose accent color">
+              <button class="accent-swatch swatch-black" data-accent="black" aria-label="Black accent"></button>
+              <button class="accent-swatch swatch-red" data-accent="red" aria-label="Red accent"></button>
+              <button class="accent-swatch swatch-blue" data-accent="blue" aria-label="Blue accent"></button>
+              <button class="accent-swatch swatch-green" data-accent="green" aria-label="Green accent"></button>
+              <button class="accent-swatch swatch-purple" data-accent="purple" aria-label="Purple accent"></button>
+            </div>
           </div>
         </div>
-        <ul class="social-icons justify-center md:justify-center mt-3">
-          <li>
-            <a class="social-link" href="mailto:mj.rivera070@gmail.com" aria-label="Email">
-              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2zm0 2l8 5 8-5" stroke="currentColor" fill="none" stroke-width="2"/></svg>
-            </a>
-          </li>
-          <li>
-            <a class="social-link" href="#" aria-label="GitHub">
-              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5a12 12 0 0 0-3.79 23.4c.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.6-4.04-1.6-.55-1.38-1.34-1.75-1.34-1.75-1.1-.76.08-.74.08-.74 1.22.09 1.86 1.26 1.86 1.26 1.08 1.85 2.83 1.31 3.52 1 .11-.78.42-1.31.76-1.61-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.5.12-3.12 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.66 1.62.24 2.82.12 3.12.77.84 1.23 1.91 1.23 3.22 0 4.61-2.81 5.62-5.49 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.82.58A12 12 0 0 0 12 .5z" fill="currentColor"/></svg>
-            </a>
-          </li>
-          <li>
-            <a class="social-link" href="#" aria-label="LinkedIn">
-              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM.5 8.5h4V23h-4V8.5zm7 0h3.84v1.98h.05c.54-1.03 1.86-2.12 3.83-2.12 4.1 0 4.86 2.7 4.86 6.2V23h-4v-6.5c0-1.55-.03-3.54-2.16-3.54-2.17 0-2.5 1.69-2.5 3.43V23h-4V8.5z" fill="currentColor"/></svg>
-            </a>
-          </li>
-        </ul>
-      </div>
+      </header>
 
-      <!-- Theme Card -->
-      <div class="bento-card p-4">
-        <h3 class="text-sm font-semibold text-center mb-2">Theme</h3>
-        <div class="accent-colors">
-          <div class="theme-controls">
-            <label class="theme-toggle" title="Toggle dark mode">
-              <input type="checkbox" id="themeToggle" aria-label="Toggle theme" />
-              <span class="theme-track">
-                <svg class="icon sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><line x1="12" y1="1" x2="12" y2="4"></line><line x1="12" y1="20" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="6.34" y2="6.34"></line><line x1="17.66" y1="17.66" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="4" y2="12"></line><line x1="20" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="6.34" y2="17.66"></line><line x1="17.66" y1="6.34" x2="19.78" y2="4.22"></line></svg>
-                <svg class="icon moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-                <span class="theme-thumb" aria-hidden="true"></span>
-              </span>
-            </label>
-          </div>
-          <div class="accent-controls" role="group" aria-label="Choose accent color">
-            <button class="accent-swatch swatch-black" data-accent="black" aria-label="Black accent"></button>
-            <button class="accent-swatch swatch-red" data-accent="red" aria-label="Red accent"></button>
-            <button class="accent-swatch swatch-blue" data-accent="blue" aria-label="Blue accent"></button>
-            <button class="accent-swatch swatch-green" data-accent="green" aria-label="Green accent"></button>
-            <button class="accent-swatch swatch-purple" data-accent="purple" aria-label="Purple accent"></button>
-          </div>
-        </div>
-      </div>
-    </aside>
+      <article class="article-content cardless text-[15px] sm:text-base leading-relaxed">
+        <!-- About card with embedded profile + theme; flow-root contains floats -->
+        <section class="bento-card p-4 sm:p-5 flow-root">
+          <!-- On mobile, show the card first; on desktop it floats right -->
+          <aside class="about-aside md:float-right md:w-[300px] md:ml-4 mb-3 md:mb-2 space-y-3">
+            <!-- Miniature version of index profile card -->
+            <div class="bento-card p-0 overflow-hidden">
+              <div class="profile-card flex items-center justify-center p-3">
+                <div class="flex flex-col items-center gap-2">
+                  <img src="data/pfp.png" alt="Profile picture" class="profile-pic profile-pic-border w-[110px] h-[110px] rounded-full border-4 object-cover" />
+                  <p class="name font-semibold text-base sm:text-lg text-center text-white tracking-[1.5px] mb-0.5">MIKE JOMARI RIVERA</p>
+                  <p class="title text-xs sm:text-sm text-white text-center tracking-[0.5px]">Junior Web Developer<br/>UI/UX Designer</p>
+                  <ul class="social-icons justify-center mt-2">
+                    <li>
+                      <a class="social-link" href="#" aria-label="GitHub">
+                        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5a12 12 0 0 0-3.79 23.4c.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.6-4.04-1.6-.55-1.38-1.34-1.75-1.34-1.75-1.1-.76.08-.74.08-.74 1.02.07 1.56 1.08 1.56 1.08.9 1.58 2.36 1.12 2.94.86.09-.67.35-1.12.64-1.38-2.23-.26-4.58-1.14-4.58-5.08 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.32.1-2.75 0 0 .84-.27 2.75 1.05.8-.23 1.65-.35 2.5-.35.85 0 1.7.12 2.5.35 1.9-1.32 2.74-1.05 2.74-1.05.56 1.43.21 2.49.1 2.75.64.72 1.02 1.63 1.02 2.75 0 3.95-2.36 4.82-4.6 5.07.36.32.68.95.68 1.92 0 1.38-.01 2.49-.01 2.82 0 .27.18.6.69.5A10.01 10.01 0 0 0 22 12.34C22 6.65 17.52 2 12 2Z" fill="currentColor"/></svg>
+                      </a>
+                    </li>
+                    <li>
+                      <a class="social-link" href="#" aria-label="LinkedIn">
+                        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM.5 8.5h4V23h-4V8.5zm7 0h3.84v1.98h.05c.54-1.03 1.86-2.12 3.83-2.12 4.1 0 4.86 2.7 4.86 6.2V23h-4v-6.5c0-1.55-.03-3.54-2.16-3.54-2.17 0-2.5 1.69-2.5 3.43V23h-4V9z" fill="currentColor"/></svg>
+                      </a>
+                    </li>
+                    <li>
+                      <a class="social-link" href="#" aria-label="Facebook">
+                        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M22 12a10 10 0 1 0-11.56 9.9v-7h-2.2V12h2.2V9.8c0-2.17 1.29-3.36 3.27-3.36.95 0 1.94.17 1.94.17v2.14h-1.1c-1.08 0-1.42.68-1.42 1.38V12h2.42l-.39 2.9h-2.03v7A10 10 0 0 0 22 12Z"/></svg>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </aside>
+          <h1 id="about-title" class="text-2xl font-semibold text-left">About Me</h1>
 
-    <article class="article-content cardless text-[15px] sm:text-base leading-relaxed">
-      <!-- About card -->
-      <section class="bento-card p-4 sm:p-5">
-        <h1 id="about-title" class="text-2xl font-semibold text-left">About Me</h1>
-        <p>I am an aspiring developer that focuses mainly on <strong>web development</strong> and a bit of <strong>graphic design</strong> on the side. I am passionate about creating solutions that cater to specific needs and I'm up for exploring more niches in my field.</p><br>
-        <p>That being said, I am currently learning C++ and Docker! While I learn, I also have a plethora of skills (in and out of the field) that I can offer such as: graphic design, solutions for programming activities, tech support, copywriting, transcribing, data encoding, and teaching.</p>
-      </section>
+          <p>I am an aspiring developer that focuses mainly on <strong>web development</strong> and a bit of <strong>graphic design</strong> on the side. I am passionate about creating solutions that cater to specific needs and I'm up for exploring more niches in my field.</p>
+          <br>
+          <p>That being said, I am currently learning C++ and Docker! While I learn, I also have a plethora of skills (in and out of the field) that I can offer such as: graphic design, solutions for programming activities, tech support, copywriting, transcribing, data encoding, and teaching.</p>
+
+          <p>I am an aspiring developer that focuses mainly on <strong>web development</strong> and a bit of <strong>graphic design</strong> on the side. I am passionate about creating solutions that cater to specific needs and I'm up for exploring more niches in my field.</p>
+          <br>
+          <p>That being said, I am currently learning C++ and Docker! While I learn, I also have a plethora of skills (in and out of the field) that I can offer such as: graphic design, solutions for programming activities, tech support, copywriting, transcribing, data encoding, and teaching.</p>
+          <p>I am an aspiring developer that focuses mainly on <strong>web development</strong> and a bit of <strong>graphic design</strong> on the side. I am passionate about creating solutions that cater to specific needs and I'm up for exploring more niches in my field.</p>
+          <br>
+          <p>That being said, I am currently learning C++ and Docker! While I learn, I also have a plethora of skills (in and out of the field) that I can offer such as: graphic design, solutions for programming activities, tech support, copywriting, transcribing, data encoding, and teaching.</p>
+        </section>
+
         <!-- Skills: Single merged container -->
         <div class="mt-4 bento-card p-4 skills-section">
           <h2 id="skills-title" class="text-2xl font-semibold text-left">Skills</h2>
           <p class="mt-1 text-sm text-gray-600 dark:text-gray-300">This is a quick overview of my skills and tools.</p>
-          <div class="mt-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+          <div class="mt-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 md:gap-3 lg:gap-4">
             <!-- Programming -->
             <fieldset class="section-card p-4">
               <legend class="section-legend text-xs font-semibold tracking-wider text-gray-600 dark:text-gray-300 uppercase">Programming</legend>
@@ -170,8 +226,8 @@
             </fieldset>
           </div>
         </div>
-    </article>
-  </main>
+      </article>
+    </main>
   </div>
 </body>
 </html>

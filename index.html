@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="index.css">
     
 </head>
-<body class="min-h-screen">
+<body class="theme-light accent-black min-h-screen">
 
     <div id="app">
 
@@ -33,7 +33,7 @@
     <div class="grid-item accent-colors p-3 sm:p-4 row-start-3 col-start-5 col-span-2 aspect-square md:aspect-auto md:row-start-1 md:col-start-6 md:col-span-1">
             <div class="theme-controls">
                 <label class="theme-toggle" aria-label="Toggle dark mode">
-                    <input type="checkbox" id="themeToggle" />
+                    <input type="checkbox" id="themeToggle" data-theme-toggle />
                     <span class="theme-track">
                         <svg class="icon sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                             <circle cx="12" cy="12" r="4"></circle>
@@ -63,17 +63,17 @@
         </div>
 
         <!-- ABOUT -> row 2 full width on mobile -->
-    <div class="grid-item about-top clickable p-3 sm:p-4 row-start-2 col-span-6 md:row-start-1 md:col-start-2 md:col-span-2" role="link" tabindex="0" aria-label="Go to About Me" data-href="about.html">
+    <div class="grid-item about-top clickable tile-hover p-3 sm:p-4 row-start-2 col-span-6 md:row-start-1 md:col-start-2 md:col-span-2 flex items-center justify-center text-center" role="link" tabindex="0" aria-label="Go to About Me" data-href="about.html">
             <h3>ABOUT ME</h3>
         </div>
 
         <!-- CODE PROJECTS -> row 4 right half on mobile -->
-    <div class="grid-item code-projects clickable p-3 sm:p-4 text-center row-start-4 col-start-4 col-span-3 md:row-start-3 md:col-start-1 md:row-span-2 md:col-span-1" role="link" tabindex="0" aria-label="Go to Code Projects" data-href="code.html">
+    <div class="grid-item code-projects clickable tile-hover p-3 sm:p-4 text-center row-start-4 col-start-4 col-span-3 md:row-start-3 md:col-start-1 md:row-span-2 md:col-span-1 flex items-center justify-center" role="link" tabindex="0" aria-label="Go to Code Projects" data-href="code.html">
             <h3 class="leading-tight">CODE<br/>PROJECTS</h3>
         </div>
 
         <!-- FEATURED DESIGNS -> row 4 left half on mobile -->
-    <div class="grid-item ui-projects designs clickable p-3 sm:p-4 text-center row-start-4 col-start-1 col-span-3 md:row-start-1 md:row-span-2 md:col-start-1 md:col-span-1" role="link" tabindex="0" aria-label="Go to Featured Designs" data-href="designs.html">
+    <div class="grid-item ui-projects designs clickable tile-hover p-3 sm:p-4 text-center row-start-4 col-start-1 col-span-3 md:row-start-1 md:row-span-2 md:col-start-1 md:col-span-1 flex items-center justify-center" role="link" tabindex="0" aria-label="Go to Featured Designs" data-href="designs.html">
         <h3 class="leading-tight">FEATURED<br/>DESIGNS</h3>
         </div>
 

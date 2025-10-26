@@ -129,13 +129,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Theme switching
     const body = document.body;
-    const themeToggle = document.getElementById('themeToggle');
+    const primaryToggle = document.getElementById('themeToggle');
+    // Support multiple theme toggles across the page (e.g., header + in-article)
+    const themeToggles = Array.from(document.querySelectorAll('[data-theme-toggle]'));
+    if (primaryToggle && !themeToggles.includes(primaryToggle)) themeToggles.push(primaryToggle);
     const setTheme = (theme) => {
         body.classList.remove('theme-light', 'theme-dark');
         if (theme === 'dark') body.classList.add('theme-dark');
         else body.classList.add('theme-light');
-        // Sync slider
-        if (themeToggle) themeToggle.checked = (theme === 'dark');
+        // Sync all toggles
+        themeToggles.forEach(t => { try { t.checked = (theme === 'dark'); } catch {} });
+        try { localStorage.setItem('theme', theme === 'dark' ? 'dark' : 'light'); } catch {}
     };
     const setAccent = (accent) => {
         body.classList.remove('accent-black','accent-red','accent-blue','accent-green','accent-purple');
@@ -145,24 +149,43 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.accent-swatch').forEach(s => s.classList.remove('selected'));
         const active = document.querySelector(`.accent-swatch[data-accent="${accent}"]`);
         if (active) active.classList.add('selected');
+        try { localStorage.setItem('accent', accent); } catch {}
     };
 
     // Defaults
-    if (!body.classList.contains('theme-light') && !body.classList.contains('theme-dark')) {
-        setTheme('light');
-    } else {
-        // sync slider with existing class
-        themeToggle && (themeToggle.checked = body.classList.contains('theme-dark'));
+    try {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark' || savedTheme === 'light') {
+            setTheme(savedTheme);
+        } else if (!body.classList.contains('theme-light') && !body.classList.contains('theme-dark')) {
+            setTheme('light');
+        }
+    } catch {
+        if (!body.classList.contains('theme-light') && !body.classList.contains('theme-dark')) setTheme('light');
     }
-    if (![...body.classList].some(c => c.startsWith('accent-'))) {
-        setAccent('black');
-    } else {
-        const currentAccent = [...body.classList].find(c => c.startsWith('accent-'))?.replace('accent-','');
-        if (currentAccent) setAccent(currentAccent);
+    {
+        // sync sliders with existing class
+        const isDark = body.classList.contains('theme-dark');
+        themeToggles.forEach(t => { try { t.checked = isDark; } catch {} });
+    }
+    try {
+        const savedAccent = localStorage.getItem('accent');
+        if (savedAccent) {
+            setAccent(savedAccent);
+        } else if (![...body.classList].some(c => c.startsWith('accent-'))) {
+            setAccent('black');
+        } else {
+            const currentAccent = [...body.classList].find(c => c.startsWith('accent-'))?.replace('accent-','');
+            if (currentAccent) setAccent(currentAccent);
+        }
+    } catch {
+        if (![...body.classList].some(c => c.startsWith('accent-'))) setAccent('black');
     }
 
-    // Theme slider listener
-    themeToggle?.addEventListener('change', () => setTheme(themeToggle.checked ? 'dark' : 'light'));
+    // Theme slider listeners (all toggles)
+    themeToggles.forEach(t => {
+        t.addEventListener('change', () => setTheme(t.checked ? 'dark' : 'light'));
+    });
     document.querySelectorAll('[data-accent]').forEach(btn => {
         btn.addEventListener('click', () => setAccent(btn.getAttribute('data-accent')));
     });
@@ -377,4 +400,218 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }, true); // capture phase to intercept early
     }
+
+    // Masonry items: open modal with image and title when clicked
+    document.querySelectorAll('.masonry-item').forEach(item => {
+        item.addEventListener('click', (e) => {
+            // prevent clicks on controls inside the card from opening modal
+            const target = e.target;
+            if (target.closest('button, a, [role="tab"], [data-modal-source]')) return;
+            if (!modal || !modalBody || !modalTitle) return;
+            lastFocused = document.activeElement;
+            modalBody.innerHTML = '';
+            // prefer to clone an <img> inside the item
+            const img = item.querySelector('img');
+            if (img) {
+                const clone = img.cloneNode(true);
+                clone.className = 'modal-image';
+                clone.style.maxWidth = '100%';
+                clone.alt = img.alt || '';
+                modalBody.appendChild(clone);
+            }
+            const titleEl = item.querySelector('h3');
+            modalTitle.textContent = titleEl ? titleEl.textContent : 'Details';
+            modal.removeAttribute('hidden');
+            const closeBtn = modal.querySelector('[data-modal-close]');
+            if (closeBtn) closeBtn.focus();
+            document.body.style.overflow = 'hidden';
+        });
+    });
+
+    // Mobile navbar: use existing hamburger button and toggle header controls dropdown
+    (function setupMobileNav() {
+        const header = document.querySelector('header');
+        if (!header) return;
+        const nav = header.querySelector('.sidebar-nav');
+        const btn = header.querySelector('.mobile-nav-toggle');
+        const controls = header.querySelector('.header-controls');
+        if (!nav || !btn) return;
+
+        const closeControls = () => {
+            btn.setAttribute('aria-expanded', 'false');
+            nav.classList.remove('open');
+            if (controls) {
+                controls.classList.remove('controls-open');
+                // remove inline positioning
+                controls.style.left = '';
+                controls.style.top = '';
+                controls.classList.remove('flipped');
+                controls.style.removeProperty('--caret-x');
+                // remove resize listener if present
+                if (repositionOnResize) {
+                    window.removeEventListener('resize', repositionOnResize);
+                    repositionOnResize = null;
+                }
+            }
+        };
+
+        btn.addEventListener('click', (e) => {
+            const expanded = btn.getAttribute('aria-expanded') === 'true';
+            const willOpen = !expanded;
+            btn.setAttribute('aria-expanded', String(willOpen));
+            nav.classList.toggle('open', willOpen);
+            if (controls) {
+                // toggle visible state first so CSS rules apply
+                controls.classList.toggle('controls-open', willOpen);
+
+                if (willOpen) {
+                    // Measure and position after layout has updated
+                    // Temporarily ensure the element is renderable for measurement
+                    controls.style.visibility = 'hidden';
+                    controls.style.pointerEvents = 'none';
+                    // Use requestAnimationFrame to wait for layout
+                    requestAnimationFrame(() => {
+                        const headerRect = header.getBoundingClientRect();
+                        const btnRect = btn.getBoundingClientRect();
+                        const controlsRect = controls.getBoundingClientRect();
+
+                        // center the dropdown on the button
+                        let left = Math.round(btnRect.left - headerRect.left + (btnRect.width / 2) - (controlsRect.width / 2));
+                        // clamp horizontally within header with an 8px inset
+                        const minLeft = 8;
+                        const maxLeft = Math.round(headerRect.width - controlsRect.width - 8);
+                        if (left < minLeft) left = minLeft;
+                        if (left > maxLeft) left = maxLeft;
+
+                        // prefer placing below the button, but flip above if not enough space
+                        const spaceBelow = window.innerHeight - btnRect.bottom;
+                        let top = Math.round(btnRect.bottom - headerRect.top + 8);
+                        if (spaceBelow < controlsRect.height + 16) {
+                            // not enough room below; place above the button
+                            top = Math.round(btnRect.top - headerRect.top - controlsRect.height - 8);
+                        }
+
+                        controls.style.left = `${left}px`;
+                        controls.style.top = `${top}px`;
+                        // compute caret position relative to the controls element
+                        const caretX = Math.round(btnRect.left - headerRect.left + (btnRect.width / 2) - left);
+                        controls.style.setProperty('--caret-x', `${caretX}px`);
+                        // toggle flipped class when placed above
+                        if (spaceBelow < controlsRect.height + 16) {
+                            controls.classList.add('flipped');
+                        } else {
+                            controls.classList.remove('flipped');
+                        }
+
+                        // restore interactivity/visibility
+                        controls.style.visibility = '';
+                        controls.style.pointerEvents = '';
+
+                        // install a debounced resize handler so the caret/panel repositions smoothly
+                        if (repositionOnResize) window.removeEventListener('resize', repositionOnResize);
+                        repositionOnResize = debounce(() => {
+                            // re-run positioning logic while open
+                            if (!controls.classList.contains('controls-open')) return;
+                            const headerRect2 = header.getBoundingClientRect();
+                            const btnRect2 = btn.getBoundingClientRect();
+                            const controlsRect2 = controls.getBoundingClientRect();
+                            let left2 = Math.round(btnRect2.left - headerRect2.left + (btnRect2.width / 2) - (controlsRect2.width / 2));
+                            const minLeft2 = 8;
+                            const maxLeft2 = Math.round(headerRect2.width - controlsRect2.width - 8);
+                            if (left2 < minLeft2) left2 = minLeft2;
+                            if (left2 > maxLeft2) left2 = maxLeft2;
+                            const spaceBelow2 = window.innerHeight - btnRect2.bottom;
+                            let top2 = Math.round(btnRect2.bottom - headerRect2.top + 8);
+                            if (spaceBelow2 < controlsRect2.height + 16) {
+                                top2 = Math.round(btnRect2.top - headerRect2.top - controlsRect2.height - 8);
+                            }
+                            controls.style.left = `${left2}px`;
+                            controls.style.top = `${top2}px`;
+                            const caretX2 = Math.round(btnRect2.left - headerRect2.left + (btnRect2.width / 2) - left2);
+                            controls.style.setProperty('--caret-x', `${caretX2}px`);
+                            if (spaceBelow2 < controlsRect2.height + 16) controls.classList.add('flipped'); else controls.classList.remove('flipped');
+                        }, 120);
+                        window.addEventListener('resize', repositionOnResize);
+                    });
+                } else {
+                    controls.style.left = '';
+                    controls.style.top = '';
+                }
+            }
+            // prevent event from bubbling to document click handler
+            e.stopPropagation();
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!controls) return;
+            const target = e.target;
+            if (controls.classList.contains('controls-open')) {
+                if (!controls.contains(target) && !btn.contains(target)) {
+                    closeControls();
+                }
+            }
+        });
+    })();
+    // small utility: simple debounce
+    function debounce(fn, wait) {
+        let t = null;
+        return function (...args) {
+            clearTimeout(t);
+            t = setTimeout(() => fn.apply(this, args), wait);
+        };
+    }
+    
+    // Minimal horizontal carousel (1 card on mobile, 3 on desktop)
+    (function setupCarousels(){
+        const carousels = document.querySelectorAll('[data-carousel]');
+        if (!carousels.length) return;
+
+        carousels.forEach(carousel => {
+            const viewport = carousel.querySelector('[data-carousel-viewport]');
+            const track = carousel.querySelector('[data-carousel-track]');
+            const prev = carousel.querySelector('[data-carousel-prev]');
+            const next = carousel.querySelector('[data-carousel-next]');
+            if (!viewport || !track) return;
+
+            // Ensure snapping feels nice
+            viewport.style.scrollBehavior = 'smooth';
+            viewport.style.webkitOverflowScrolling = 'touch';
+
+            const gapPx = () => {
+                try {
+                    const gap = getComputedStyle(track).gap || '0px';
+                    return parseFloat(gap) || 0;
+                } catch { return 0; }
+            };
+            const itemWidth = () => {
+                const first = track.children[0];
+                if (!first) return viewport.clientWidth;
+                const rect = first.getBoundingClientRect();
+                return rect.width + gapPx();
+            };
+            const scrollItems = (n) => {
+                const amount = itemWidth() * n;
+                viewport.scrollBy({ left: amount, behavior: 'smooth' });
+            };
+            const updateDisabled = () => {
+                const max = Math.max(0, track.scrollWidth - viewport.clientWidth);
+                const sl = Math.round(viewport.scrollLeft);
+                if (prev) prev.disabled = sl <= 2;
+                if (next) next.disabled = sl >= max - 2;
+            };
+
+            prev?.addEventListener('click', () => scrollItems(-1));
+            next?.addEventListener('click', () => scrollItems(1));
+            viewport.addEventListener('scroll', debounce(updateDisabled, 60));
+            window.addEventListener('resize', debounce(updateDisabled, 100));
+            updateDisabled();
+
+            // Keyboard support when buttons focused
+            [prev, next].forEach(btn => btn?.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowLeft') { e.preventDefault(); scrollItems(-1); }
+                if (e.key === 'ArrowRight') { e.preventDefault(); scrollItems(1); }
+            }));
+        });
+    })();
 });
